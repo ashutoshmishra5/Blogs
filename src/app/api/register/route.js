@@ -14,7 +14,7 @@ export async function POST(request) {
 
     const exist = await prisma.user.findUnique({
         where: {
-            email: email // Corrected spelling of email
+            email: email
         }
     });
 
@@ -24,15 +24,15 @@ export async function POST(request) {
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    const user = await prisma.user.create({ // Corrected spelling of create
+    const user = await prisma.user.create({
         data: {
             name,
             email,
-            hashedPassword // Changed hashedPassword to password
+            hashedPassword
         }
     });
 
-    return new NextResponse(JSON.stringify(user)); // Corrected return statement
+    return new NextResponse(JSON.stringify(user));
 }
 
 
