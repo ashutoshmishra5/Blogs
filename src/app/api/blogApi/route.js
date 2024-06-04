@@ -9,12 +9,13 @@ const connectDb = async () => {
   });
 };
 
-export async function GET() {
+export async function GET(req, res) {
   await connectDb();
   try {
     const data = await Blog.find();
-    return new Response(JSON.stringify({ result: data }), { status: 200, headers: { "Content-Type": "application/json" } });
+    res.setHeader("Cache-Control", "no-store, max-age=0"); // Add cache-control headers
+    return res.status(200).json({ result: data });
   } catch (error) {
-    return new Response(JSON.stringify({ result: false, error: "Error retrieving data" }), { status: 500, headers: { "Content-Type": "application/json" } });
+    return res.status(500).json({ result: false, error: "Error retrieving data" });
   }
 }
