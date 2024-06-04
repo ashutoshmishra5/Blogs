@@ -74,7 +74,7 @@ export default function Homepage() {
                         {blogs.length > 0 ? (
                             <ul>
                                 {blogs.map((blog) => (
-                                    <Cards title={blog.title} desc={truncateText(blog.desc, 60)} href={`/blogs/${blog._id}`}  />
+                                    <Cards key={blog._id}  title={blog.title} desc={truncateText(blog.desc, 60)} href={`/blogs/${blog._id}`}  />
                                 ))}
                             </ul>
                         ) : (
