@@ -10,20 +10,15 @@ async function connectDb() {
   });
 }
 
-export async function GET() {
+export async function GET(req, res) {
+  await connectDb();
   try {
-    await connectDb();
     const data = await Blog.find();
-    console.log(data);
-    const response = NextResponse.json({ result: data });
-    // Clear previously stored response
-    NextResponse.clear();
-    return response;
+    // Use res.json instead of NextResponse.json
+    return res.status(200).json({ result: data });
   } catch (error) {
     console.error("Error retrieving data:", error);
-    const response = NextResponse.json({ result: false, error: "Error retrieving data" });
-    // Clear previously stored response
-    NextResponse.clear();
-    return response;
+    // Use res.json instead of NextResponse.json
+    return res.status(500).json({ result: false, error: "Error retrieving data" });
   }
 }
