@@ -13,9 +13,9 @@ const BlogPage = ({ params }) => {
             try {
                 const response = await fetch(`/api/blogApi`);
                 const result = await response.json();
-                console.log(result); // Log the result to inspect the data
+                console.log(result);
                 if (result.result) {
-                    // Find the blog with the matching _id
+                    // Find the blog with _id
                     const selectedBlog = result.result.find(blog => blog._id === id);
                     setBlog(selectedBlog);
                 }
