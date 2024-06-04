@@ -30,7 +30,7 @@ import Header from "@/components/Header/Header";
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 
-export default function testpage() {
+export default function Homepage() {
     const [blogs, setBlogs] = useState([]);
     const [error, setError] = useState(null);
     
