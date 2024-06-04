@@ -1,7 +1,7 @@
-const Cards = ({title,desc,href}) => {
+const Cards = ({key,title,desc,href}) => {
     return (
         <>
-            <div>
+            <div key={key}>
                 <div className="py-6">
                         <div className="overflow-hidden bg-gray-200 hover:shadow-lg transform hover:-translate-y-1 duration-1000">
                             <a href={href}>
