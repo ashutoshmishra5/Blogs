@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 
-export default function blogsList() {
+export default function BlogsList() {
     const [blogs, setBlogs] = useState([]);
     const [error, setError] = useState(null);
 
