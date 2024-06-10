@@ -9,7 +9,7 @@ import Header from "@/components/Header/Header";
 import Image from "next/image";
 import Link from "next/link";
 
-export default function RegisterPage() {
+export default function LogInPage() {
     const router = useRouter();
 
     const [data, setData] = useState({
@@ -35,14 +35,13 @@ export default function RegisterPage() {
                 <div className="col-span-10 md:col-span-6 bg-blue-200 px-2">
                     <Header/>
                     
-                    <div className="flex flex-1 flex-col justify-center ">
-                <div className="sm:mx-auto sm:w-full sm:max-w-sm">
+                <div className="flex flex-1 flex-col justify-center container-flex grid grid-cols-6 ">
+                <div className="col-span-1"></div>
+                <div className="col-span-4">
                 <h2 className="mt-10 text-center my-4 mx-4 text-2xl font-bold">
                         Sign in to your account
                     </h2>
-                </div>
-
-                <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+                    <div className="mt-10">
                     <form className="space-y-6" onSubmit={loginUser}>
                         <div>
                             <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
@@ -93,6 +92,10 @@ export default function RegisterPage() {
                     </form>
 
                 </div>
+
+                </div>
+                
+                <div className="col-span-1"></div>
                     </div>
 
                     <Footer/>

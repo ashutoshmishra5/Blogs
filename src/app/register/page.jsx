@@ -40,14 +40,15 @@ export default function RegisterPage() {
                 <div className="col-span-10 md:col-span-6 bg-blue-200 px-2">
                     <Header/>
                     
-                    <div className="flex flex-1 flex-col justify-center">
-                        <div className="sm:mx-auto sm:w-full sm:max-w-sm">
+                    <div className="flex flex-1 flex-col justify-center container-flex grid grid-cols-6 ">
+                    <div className="col-span-1"> </div>
+                        <div className="col-span-4">
+
                             <h2 className="mt-10 text-center my-4 mx-4 text-2xl font-bold">
                             Register for new account
                             </h2>
-                        </div>
 
-                        <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+                            <div className="mt-10">
                             <form className="space-y-6" onSubmit={registerUser}>
                                 <div>
                                     <label htmlFor="name" className="block text-sm font-medium leading-6 text-gray-900">
@@ -113,7 +114,12 @@ export default function RegisterPage() {
                                     </button>
                                 </div>
                             </form>
+                            </div>
+
                         </div>
+                    <div className="col-span-1"> </div>
+
+
                     </div>
 
                     <Footer/>

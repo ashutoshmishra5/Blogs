@@ -32,6 +32,7 @@ const BlogPage = ({ params }) => {
     if (!blog) {
         return <div>Loading...</div>;
     }
+    const paragraphs = blog.desc.split('\n');
 
     return (
         <div>
@@ -43,7 +44,7 @@ const BlogPage = ({ params }) => {
                     <Header/>
                     
                     <div className='text-xl py-4 px-4 bg-slate-50 font-semibold'>{blog.title}</div>
-                    <div className='text-md py-4 px-4 bg-slate-50 text-justify'>{blog.desc}</div>
+                    <div className='text-md py-4 px-4 bg-slate-50 text-justify'>{paragraphs.map((paragraph,index)=>(<p key = {index} className={paragraph.length<40?'font-semibold my-4':''}>{paragraph}</p>))}</div>
 
                     <Footer/>
 

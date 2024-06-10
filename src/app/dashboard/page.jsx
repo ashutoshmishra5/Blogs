@@ -12,6 +12,22 @@ const Dashboard = () => {
   const [title, setTitle] = useState('');
   const [desc, setDesc] = useState('');
 
+  const handleKeyPress = (event) => {
+    // Check if Enter key is pressed
+    if (event.key === 'Enter') {
+      // Prevent the default behavior (form submission)
+      event.preventDefault();
+      
+      // Insert a newline character at the cursor position
+      const { selectionStart, selectionEnd } = event.target;
+      const newDesc = desc.substring(0, selectionStart) + '\n' + desc.substring(selectionEnd);
+      setDesc(newDesc);
+      
+      // Move the cursor to the end of the inserted newline character
+      event.target.selectionStart = event.target.selectionEnd = selectionStart + 1;
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -75,6 +91,7 @@ const Dashboard = () => {
                           placeholder="Description"
                           value={desc}
                           onChange={(e) => setDesc(e.target.value)}
+                          onKeyDown={handleKeyPress}
                           required
                         />
                         <button className='container flex flex-row items-center justify-center mt-8 ml-auto bg-slate-500 text-white px-4 py-2 rounded' type="submit">Post Blog</button>
