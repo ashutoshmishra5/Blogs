@@ -31,8 +31,8 @@ export default function RegisterPage() {
             
 
             <div className="container-flex grid grid-cols-10">
-            <div className="col-span-2 bg-blue-200"></div>
-                <div className="col-span-6 bg-blue-200">
+            <div className="md:col-span-2 bg-blue-200"></div>
+                <div className="col-span-10 md:col-span-6 bg-blue-200 px-2">
                     <Header/>
                     
                     <div className="flex flex-1 flex-col justify-center ">
@@ -98,7 +98,7 @@ export default function RegisterPage() {
                     <Footer/>
 
                 </div>
-            <div className="col-span-2 bg-blue-200"></div>
+            <div className="md:col-span-2 bg-blue-200"></div>
       
         </div>
 

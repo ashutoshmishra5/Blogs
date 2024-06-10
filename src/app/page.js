@@ -1,28 +1,3 @@
-/*
-import Cards from "@/components/Cards/Cards";
-import Footer from "@/components/Footer/Footer";
-import Header from "@/components/Header/Header";
-
-export default function testpage() {
-    return (
-        <div className="container-flex grid grid-cols-10">
-            <div className="col-span-2 bg-blue-200"></div>
-                <div className="col-span-6 bg-blue-200">
-                    <Header/>
-                    
-                    <Cards title="ChatGPT" desc="euwhrfjwehfuhehfuehfhe feruhfefuewfjiuerhfuierf fuerhfiefuierfuierhfuierf f fruhfiehwiufeiufhuiehfuehfehf"/>
-
-                    <Footer/>
-
-                </div>
-            <div className="col-span-2 bg-blue-200"></div>
-      
-        </div>
-      
-    );
-}
-*/
-
 'use client'
 import Cards from "@/components/Cards/Cards";
 import Footer from "@/components/Footer/Footer";
@@ -62,8 +37,8 @@ export default function Homepage() {
 
     return (
         <div className="container-flex grid grid-cols-10">
-            <div className="col-span-2 bg-blue-200"></div>
-                <div className="col-span-6 bg-blue-200">
+            <div className="md:col-span-2 bg-blue-200"></div>
+                <div className="col-span-10 md:col-span-6 bg-blue-200 px-2">
                     <Header/>
                     
                     
@@ -87,10 +62,34 @@ export default function Homepage() {
                     <Footer/>
 
                 </div>
-            <div className="col-span-2 bg-blue-200"></div>
+            <div className="md:col-span-2 bg-blue-200"></div>
       
         </div>
 
     );
 }
 
+/*
+import Cards from "@/components/Cards/Cards";
+import Footer from "@/components/Footer/Footer";
+import Header from "@/components/Header/Header";
+
+export default function testpage() {
+    return (
+        <div className="container-flex grid grid-cols-10">
+            <div className="col-span-2 bg-blue-200"></div>
+                <div className="col-span-6 bg-blue-200">
+                    <Header/>
+                    
+                    <Cards title="ChatGPT" desc="euwhrfjwehfuhehfuehfhe feruhfefuewfjiuerhfuierf fuerhfiefuierfuierhfuierf f fruhfiehwiufeiufhuiehfuehfehf"/>
+
+                    <Footer/>
+
+                </div>
+            <div className="col-span-2 bg-blue-200"></div>
+      
+        </div>
+      
+    );
+}
+*/

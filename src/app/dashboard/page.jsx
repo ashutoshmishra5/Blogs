@@ -1,25 +1,3 @@
-/*'use client'
-import { useSession } from "next-auth/react";
-
-import { signOut } from 'next-auth/react';
-
-export default function Dashboard() {
-    const { data: session, status } = useSession();
-    console.log(session);
-    return(
-       <div>
-        <button onClick={() => signOut({ callbackUrl: '/login' })}>
-            Sign Out
-        </button>
-       <div>Dashboard</div>
-       <p> Hi {session?.user.name}</p>
-       </div>
-    );
-}
-
-*/
-
-//------------------------------------------------------------------------------------------------------------------------
 'use client';
 import { useSession } from 'next-auth/react';
 import { signOut } from 'next-auth/react';
@@ -72,8 +50,8 @@ const Dashboard = () => {
     <div>
 
       <div className="container-flex grid grid-cols-10">
-            <div className="col-span-2 bg-blue-200"></div>
-                <div className="col-span-6 bg-blue-200">
+            <div className="md:col-span-2 bg-blue-200"></div>
+                <div className="col-span-10 md:col-span-6 bg-blue-200 px-2">
                     <Header/>
                     
                       <div>
@@ -104,7 +82,7 @@ const Dashboard = () => {
                     <Footer/>
 
                 </div>
-            <div className="col-span-2 bg-blue-200"></div>
+            <div className="md:col-span-2 bg-blue-200"></div>
       
         </div>
 
@@ -114,3 +92,24 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
+
+/*'use client'
+import { useSession } from "next-auth/react";
+
+import { signOut } from 'next-auth/react';
+
+export default function Dashboard() {
+    const { data: session, status } = useSession();
+    console.log(session);
+    return(
+       <div>
+        <button onClick={() => signOut({ callbackUrl: '/login' })}>
+            Sign Out
+        </button>
+       <div>Dashboard</div>
+       <p> Hi {session?.user.name}</p>
+       </div>
+    );
+}
+
+*/

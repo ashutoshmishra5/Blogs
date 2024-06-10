@@ -38,17 +38,17 @@ const BlogPage = ({ params }) => {
             
 
             <div className="container-flex grid grid-cols-10">
-            <div className="col-span-2 bg-blue-200"></div>
-                <div className="col-span-6 bg-blue-200">
+            <div className="md:col-span-2 bg-blue-200"></div>
+                <div className="col-span-10 md:col-span-6 bg-blue-200 px-2">
                     <Header/>
                     
-                    <div className='text-2xl py-4 px-4 bg-slate-50'>{blog.title}</div>
-                    <div className='text-lg py-4 px-4 bg-slate-50 text-justify'>{blog.desc}</div>
+                    <div className='text-xl py-4 px-4 bg-slate-50 font-semibold'>{blog.title}</div>
+                    <div className='text-md py-4 px-4 bg-slate-50 text-justify'>{blog.desc}</div>
 
                     <Footer/>
 
                 </div>
-            <div className="col-span-2 bg-blue-200"></div>
+            <div className="md:col-span-2 bg-blue-200"></div>
       
             </div>
         </div>
