@@ -1,4 +1,3 @@
-// src/app/api/addblogApi/route.js
 import mongoose from 'mongoose';
 import { Blog } from '../../lib/models';
 
@@ -14,8 +13,8 @@ export const POST = async (req, res) => {
   await connectDb();
 
   try {
-    const { title, desc } = await req.json();
-    const post = await Blog.create({ title, desc });
+    const { title, desc, date, author } = await req.json();
+    const post = await Blog.create({ title, desc, date, author });
     return new Response(JSON.stringify({ success: true, data: post }), { status: 201 });
   } catch (error) {
     return new Response(JSON.stringify({ success: false, error: error.message }), { status: 400 });

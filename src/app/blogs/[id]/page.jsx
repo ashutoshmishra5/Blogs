@@ -44,6 +44,12 @@ const BlogPage = ({ params }) => {
                     <Header/>
                     
                     <div className='text-xl py-4 px-4 bg-slate-50 font-semibold'>{blog.title}</div>
+                    <div className="container mx-auto">
+                    <div className="flex bg-slate-50">
+                    <div className='text-xs pl-4'>Written By <span className="font-medium">{blog.author}</span></div>
+                    <div className='text-xs pl-1'>| Updated: {blog.date}</div>
+                    </div>
+                    </div>
                     <div className='text-md py-4 px-4 bg-slate-50 text-justify'>{paragraphs.map((paragraph,index)=>(<p key = {index} className={paragraph.length<40?'font-semibold my-4':''}>{paragraph}</p>))}</div>
 
                     <Footer/>

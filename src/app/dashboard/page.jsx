@@ -11,6 +11,13 @@ const Dashboard = () => {
   const { data: session, status } = useSession();
   const [title, setTitle] = useState('');
   const [desc, setDesc] = useState('');
+  const [author, setAuthor] = useState('');
+  const [date, setDate] = useState(() => {
+    const now = new Date();
+    return `${now.getDate()}-${now.getMonth() + 1}-${now.getFullYear()}`;
+  });
+  
+  useEffect(()=> { if(session?.user.name) setAuthor(session?.user.name)}, [session])
 
   const handleKeyPress = (event) => {
     // Check if Enter key is pressed
@@ -30,7 +37,6 @@ const Dashboard = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     try {
       const response = await fetch('/api/addblogApi', {
         method: 'POST',
@@ -39,10 +45,11 @@ const Dashboard = () => {
         },
         body: JSON.stringify({
           title,
-          desc
+          desc,
+          date,
+          author,
         }),
       });
-
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
