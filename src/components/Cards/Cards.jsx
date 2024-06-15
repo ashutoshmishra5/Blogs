@@ -1,4 +1,4 @@
-const Cards = ({key,title,desc,href}) => {
+const Cards = ({key,title,desc,href,author,date}) => {
     return (
         <>
             <div key={key}>
@@ -6,6 +6,10 @@ const Cards = ({key,title,desc,href}) => {
                         <div className="overflow-hidden bg-gray-200 hover:shadow-lg transform hover:-translate-y-1 duration-1000">
                             <a href={href}>
                                 <div className="flex"><h1 className="my-4 mx-4 text-xl font-semibold">{title}</h1></div>
+                                <div className="flex bg-slate-200">
+                                    <div className='text-xs pl-4'>Written By <span className="font-medium">{author}</span></div>
+                                    <div className='text-xs pl-1'>| Updated: {date}</div>
+                                </div>
                                 <div className="flex bg-gray-200 text-md text-gray-500"><h1 className="my-4 mx-4">{desc}</h1></div>
                             </a>
                         </div>

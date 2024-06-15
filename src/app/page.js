@@ -53,7 +53,7 @@ const Homepage = () => {
                     {blogsInThisPage.length > 0 ? (
                         <ul>
                             {blogsInThisPage.map((blog) => (
-                                <Cards key={blog._id} title={blog.title} desc={truncateText(blog.desc, 60)} href={`/blogs/${blog._id}`} />
+                                <Cards key={blog._id} title={blog.title} author={blog.author} date={blog.date} desc={truncateText(blog.desc, 60)} href={`/blogs/${blog._id}`} />
                             ))}
                         </ul>
                     ) : (
