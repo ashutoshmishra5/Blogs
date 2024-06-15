@@ -37,7 +37,6 @@ const Dashboard = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
       const response = await fetch('/api/addblogApi', {
         method: 'POST',
         headers: {
@@ -50,24 +49,10 @@ const Dashboard = () => {
           author,
         }),
       });
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-
-      const data = await response.json();
-      console.log(data);
-    } catch (error) {
-      console.error('Error creating post:', error);
-    }
-  };
-
-  if (status === 'loading') {
-    return <div>Loading...</div>;
+      const postInfo = await response.json();
+      alert(postInfo.data);
   }
-
-  if (status === 'unauthenticated') {
-    return <div>You need to be authenticated to view this page.</div>;
-  }
+      
 
   return (
     <div>
@@ -77,13 +62,6 @@ const Dashboard = () => {
                 <div className="col-span-10 md:col-span-6 bg-blue-200 px-2">
                     <Header/>
                     
-                      <div>
-                        <p>Hi {session?.user.name}</p>
-                        <button className='ml-auto bg-slate-500 text-white px-4 py-2 rounded' onClick={() => signOut({ callbackUrl: '/login' })}>
-                          Sign Out
-                        </button>
-                      </div>
-
                         <form onSubmit={handleSubmit} >
                         <input
                           className="container flex flex-row items-center justify-center mt-8"

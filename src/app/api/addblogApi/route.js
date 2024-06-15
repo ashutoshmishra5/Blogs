@@ -15,8 +15,8 @@ export const POST = async (req, res) => {
   try {
     const { title, desc, date, author } = await req.json();
     const post = await Blog.create({ title, desc, date, author });
-    return new Response(JSON.stringify({ success: true, data: post }), { status: 201 });
+    return new Response(JSON.stringify({ success: true, data: "Post Submitted" }), { status: 201 });
   } catch (error) {
-    return new Response(JSON.stringify({ success: false, error: error.message }), { status: 400 });
+    return new Response(JSON.stringify({ success: false, data: "Error" }), { status: 400 });
   }
 };

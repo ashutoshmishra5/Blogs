@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Cards from "@/components/Cards/Cards";
 import Footer from "@/components/Footer/Footer";
@@ -10,7 +10,6 @@ import Link from "next/link";
 
 export default function RegisterPage() {
     const router = useRouter();
-
     const [data, setData] = useState({
         name: '',
         email: '',
@@ -28,10 +27,15 @@ export default function RegisterPage() {
         });
 
         const userInfo = await response.json();
-        console.log(userInfo);
-        router.push('/login');
-    }
 
+        alert(userInfo.message);
+        if(userInfo.message === "Registered Successfully") {
+            router.push("/login");
+        }
+
+        }
+
+        
     return (
         <>
 

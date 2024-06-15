@@ -1,8 +1,8 @@
 'use client';
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { signIn } from "next-auth/react";
+import { signIn,useSession } from "next-auth/react";
 import Cards from "@/components/Cards/Cards";
 import Footer from "@/components/Footer/Footer";
 import Header from "@/components/Header/Header";
@@ -11,25 +11,46 @@ import Link from "next/link";
 
 export default function LogInPage() {
     const router = useRouter();
+    const {data: session, status } = useSession();
 
     const [data, setData] = useState({
         email: "",
         password: ""
     });
 
+    const [pressed, setPressed] = useState(false);
+    const [loading, setLoading] = useState(false);
+
     const loginUser = async (e) => {
         e.preventDefault();
-        signIn('credentials' , {
-            ...data,
-            redirect: false,
-        });
-        router.push("/dashboard");
+        if (!pressed) {
+            setPressed(true);
+            setLoading(true);
+            const result = await signIn('credentials', {
+                ...data,
+                redirect: false,
+            });
+            if (result.error) {
+                setPressed(false);
+                setLoading(false);
+                alert("Login unsuccessful");
+            }
+        }
     };
+
+    useEffect(() => {
+        if (status === 'authenticated') {
+            setLoading(false);
+            alert("Login successful");
+            router.push("/dashboard");
+        } else if (status === 'unauthenticated' && pressed) {
+            setPressed(false);
+            setLoading(false);
+        }
+    }, [status, pressed, router]);
 
     return (
         <>
-            
-
             <div className="container-flex grid grid-cols-10">
             <div className="md:col-span-2 bg-blue-200"></div>
                 <div className="col-span-10 md:col-span-6 bg-blue-200 px-2">
