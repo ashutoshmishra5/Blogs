@@ -15,7 +15,6 @@ const BlogPage = ({ params }) => {
                 const result = await response.json();
                 console.log(result);
                 if (result.result) {
-                    // Find the blog with _id
                     const selectedBlog = result.result.find(blog => blog._id === id);
                     setBlog(selectedBlog);
                 }

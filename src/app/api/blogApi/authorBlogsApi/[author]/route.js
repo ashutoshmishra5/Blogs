@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import { NextResponse } from "next/server";
-import { Blog } from "../../lib/models";
+import { Blog } from "../../../../lib/models";
 
 // Define a flag variable to force dynamic serving
 export const dynamic = 'force-dynamic';
@@ -13,9 +13,11 @@ async function connectDb() {
     });
 }
 
-export async function GET() {
+export async function GET(request, { params }) {
+    const {author} = params;
     await connectDb();
-    const data = await Blog.find();
-    console.log(data);
+    const data = await Blog.find({ author }); 
+
     return NextResponse.json({ result: data });
 }
+

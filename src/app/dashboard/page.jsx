@@ -1,11 +1,9 @@
-'use client';
+"use client"
 import { useSession } from 'next-auth/react';
-import { signOut } from 'next-auth/react';
-import { useState, useEffect } from 'react';
-import Cards from "@/components/Cards/Cards";
-import Footer from "@/components/Footer/Footer";
-import Header from "@/components/Header/Header";
-
+import React, { useState, useEffect } from 'react';
+import Footer from '@/components/Footer/Footer';
+import Header from '@/components/Header/Header';
+import Link from 'next/link';
 
 const Dashboard = () => {
   const { data: session, status } = useSession();
@@ -16,29 +14,59 @@ const Dashboard = () => {
     const now = new Date();
     return `${now.getDate()}-${now.getMonth() + 1}-${now.getFullYear()}`;
   });
-  
-  useEffect(()=> { if(session?.user.name) setAuthor(session?.user.name)}, [session])
+
+  const [authorBlogs, setAuthorBlogs] = useState([]);
+  const [showButton, setShowButton] = useState(false);
+  const [updatingBlogId, setUpdatingBlogId] = useState(null); 
+
+  useEffect(() => {
+    if (session?.user?.name) {
+      setAuthor(session.user.name);
+    }
+  }, [session]);
+
+  useEffect(() => {
+    if (author) {
+      fetchBlogs();
+    }
+  }, [author]);
+
+  const fetchBlogs = async () => {
+    try {
+      const response = await fetch(`/api/blogApi/authorBlogsApi/${author}`);
+      if (!response.ok) {
+        throw new Error('Failed to fetch blogs');
+      }
+      const result = await response.json();
+      setAuthorBlogs(result.result);
+    } catch (error) {
+      console.error('Error fetching blogs:', error);
+    }
+  };
 
   const handleKeyPress = (event) => {
-    // Check if Enter key is pressed
     if (event.key === 'Enter') {
-      // Prevent the default behavior (form submission)
       event.preventDefault();
-      
-      // Insert a newline character at the cursor position
       const { selectionStart, selectionEnd } = event.target;
       const newDesc = desc.substring(0, selectionStart) + '\n' + desc.substring(selectionEnd);
       setDesc(newDesc);
-      
-      // Move the cursor to the end of the inserted newline character
       event.target.selectionStart = event.target.selectionEnd = selectionStart + 1;
     }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-      const response = await fetch('/api/addblogApi', {
-        method: 'POST',
+    try {
+      let url = '/api/addblogApi';
+      let method = 'POST';
+
+      if (updatingBlogId) {
+        url = `/api/blogApi/updateBlogs/${updatingBlogId}`;
+        method = 'PUT';
+      }
+
+      const response = await fetch(url, {
+        method,
         headers: {
           'Content-Type': 'application/json',
         },
@@ -49,69 +77,130 @@ const Dashboard = () => {
           author,
         }),
       });
-      const postInfo = await response.json();
-      alert(postInfo.data);
-  }
-      
+      console.log(desc);
+
+      const responseData = await response.json();
+      console.log("Hello");
+      if (response.ok) {
+        if (updatingBlogId) {
+          alert('Blog updated successfully');
+        } else {
+          alert('Blog created successfully');
+        }
+
+        setTitle('');
+        setDesc('');
+        setDate(`${new Date().getDate()}-${new Date().getMonth() + 1}-${new Date().getFullYear()}`);
+        setUpdatingBlogId(null);
+
+        fetchBlogs();
+      } else {
+        alert(`Error ${updatingBlogId ? 'updating' : 'creating'} blog: ${responseData.error}`);
+      }
+    } catch (error) {
+      console.error(`Error ${updatingBlogId ? 'updating' : 'creating'} blog:`, error);
+      alert(`Error ${updatingBlogId ? 'updating' : 'creating'} blog`);
+    }
+  };
+
+  const deleteBlog = async (id) => {
+    try {
+      const response = await fetch(`/api/blogApi/deleteBlogs/${id}`, {
+        method: 'DELETE',
+      });
+      const result = await response.json();
+      if (result.result) {
+        setAuthorBlogs(authorBlogs.filter((blog) => blog._id !== id));
+        alert('Blog deleted successfully');
+      } else {
+        alert('Error deleting blog: ' + result.error);
+      }
+    } catch (error) {
+      console.error('Error deleting blog:', error);
+      alert('Error deleting blog');
+    }
+  };
+
+  const startUpdate = (blogId) => {
+    const blogToUpdate = authorBlogs.find((blog) => blog._id === blogId);
+    if (blogToUpdate) {
+      setTitle(blogToUpdate.title);
+      setDesc(blogToUpdate.desc);
+      setUpdatingBlogId(blogId);
+    }
+  };
 
   return (
     <div>
-
       <div className="container-flex grid grid-cols-10">
-            <div className="md:col-span-2 bg-blue-200"></div>
-                <div className="col-span-10 md:col-span-6 bg-blue-200 px-2">
-                    <Header/>
-                    
-                        <form onSubmit={handleSubmit} >
-                        <input
-                          className="container flex flex-row items-center justify-center mt-8"
-                          type="text"
-                          placeholder="Title"
-                          value={title}
-                          onChange={(e) => setTitle(e.target.value)}
-                          required
-                        />
-                        <textarea
-                          className="container flex flex-row items-center justify-center mt-8"
-                          placeholder="Description"
-                          value={desc}
-                          onChange={(e) => setDesc(e.target.value)}
-                          onKeyDown={handleKeyPress}
-                          required
-                        />
-                        <button className='container flex flex-row items-center justify-center mt-8 ml-auto bg-slate-500 text-white px-4 py-2 rounded' type="submit">Post Blog</button>
-                      </form>
-                    <Footer/>
+        <div className="md:col-span-2 bg-blue-200"></div>
+        <div className="col-span-10 md:col-span-6 bg-blue-200 px-2">
+          <Header />
 
-                </div>
-            <div className="md:col-span-2 bg-blue-200"></div>
-      
+          <form onSubmit={handleSubmit}>
+            <input
+              className="container flex flex-row items-center justify-center mt-8"
+              type="text"
+              placeholder="Title"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              required
+            />
+            <textarea
+              className="container flex flex-row items-center justify-center mt-8"
+              placeholder="Description"
+              value={desc}
+              onChange={(e) => setDesc(e.target.value)}
+              onKeyDown={handleKeyPress}
+              required
+            />
+            <button
+              className="container flex flex-row items-center justify-center mt-8 ml-auto bg-slate-500 text-white px-4 py-2 rounded"
+              type="submit"
+            >
+              {updatingBlogId ? 'Update Blog' : 'Post Blog'}
+            </button>
+          </form>
+
+          <button
+            className="container flex flex-row items-center justify-center mt-8 ml-auto bg-slate-500 text-white px-4 py-2 rounded"
+            onClick={() => setShowButton(!showButton)}
+          >
+            Manage My Blogs
+          </button>
+
+          {showButton && (
+            <table>
+              <thead>
+                <tr>
+                  <th>Index</th>
+                  <th>Title</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {authorBlogs.map((authorBlog, index) => (
+                  <tr key={authorBlog._id}>
+                    <td>{index + 1}</td>
+                    <td>
+                      <Link href={`/blogs/${authorBlog._id}`}>{authorBlog.title}</Link>
+                    </td>
+                    <td>
+                      <button onClick={() => startUpdate(authorBlog._id)}>Update</button>
+                      <button onClick={() => deleteBlog(authorBlog._id)}>Delete</button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )}
+
+          <Footer />
         </div>
-
-
+        <div className="md:col-span-2 bg-blue-200"></div>
+      </div>
     </div>
   );
 };
 
 export default Dashboard;
-
-/*'use client'
-import { useSession } from "next-auth/react";
-
-import { signOut } from 'next-auth/react';
-
-export default function Dashboard() {
-    const { data: session, status } = useSession();
-    console.log(session);
-    return(
-       <div>
-        <button onClick={() => signOut({ callbackUrl: '/login' })}>
-            Sign Out
-        </button>
-       <div>Dashboard</div>
-       <p> Hi {session?.user.name}</p>
-       </div>
-    );
-}
-
-*/
