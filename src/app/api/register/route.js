@@ -19,15 +19,6 @@ export async function POST(request) {
         }
     });
 
-    if (exist) {
-        //return new NextResponse("User already exists" , { status: 400 });
-        return NextResponse.json({ message: "User already exists" }, { status: 400 });
-
-    }
-    else {
-        return NextResponse.json({ message: "Registered Successfully" }, { status: 201 });
-    }
-
     const hashedPassword = await bcrypt.hash(password, 10);
 
     const user = await prisma.user.create({
@@ -37,8 +28,19 @@ export async function POST(request) {
             hashedPassword
         }
     });
+    
+    if (exist) {
+        //return new NextResponse("User already exists" , { status: 400 });
+        return NextResponse.json({ message: "User already exists" }, { status: 400 });
+
+    }
+    else {
+        return NextResponse.json({ message: "Registered Successfully" }, { status: 201 });
+    }
 
     return new NextResponse(JSON.stringify(user));
+
+
 }
 
 
