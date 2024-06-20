@@ -2,6 +2,8 @@ import { NextResponse } from 'next/server';
 import { connectDb } from '@/app/lib/utils';
 import { Blog } from '@/app/lib/models';
 
+export const dynamic = 'force-dynamic';
+
 
 export const PUT = async (request, { params }) => {
     const { id } = params;
@@ -13,7 +15,7 @@ export const PUT = async (request, { params }) => {
       return NextResponse.json(updatedPost);
     }catch(err){
       console.log(err);
-      return {error: "Something went wrong!"};
+      return NextResponse.json({error: "Something went wrong!"});
     }
   };
   

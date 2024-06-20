@@ -32,6 +32,6 @@ export const POST = async(request) => {
         }
     } catch(err) {
         console.log(err);
-        return {error: "Something went wrong!"};
+        return NextResponse.json({error: "Something went wrong!"});
     }
 };

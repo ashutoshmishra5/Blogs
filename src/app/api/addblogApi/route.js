@@ -1,9 +1,9 @@
-import mongoose from 'mongoose';
 import { Blog } from '../../lib/models';
 import { connectDb } from '../../lib/utils'
 import { NextResponse } from "next/server";
 
-
+//force page to load dynamically
+export const dynamic = 'force-dynamic';
 
 export const POST = async (request) => {
   await connectDb();
@@ -11,8 +11,8 @@ export const POST = async (request) => {
   try {
     const { title, desc, date, author } = await request.json();
     const post = await Blog.create({ title, desc, date, author });
-    return NextResponse.json(JSON.stringify({ success: true, data: "Post Submitted" }), { status: 201 });
+    return NextResponse.json({data: "Post Submitted" });
   } catch (error) {
-    return NextResponse.json(JSON.stringify({ success: false, data: "Error" }), { status: 400 });
+    return NextResponse.json({ error: "Failed to submit post" });
   }
 };
