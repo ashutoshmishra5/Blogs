@@ -8,7 +8,10 @@ const connection = {};
         console.log("Using existing connection");
         return;
       }
-      const db = await mongoose.connect(process.env.DATABASE_URL1);
+      const db = await mongoose.connect(process.env.DATABASE_URL1, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+      });  
       connection.isConnected = db.connections[0].readyState;
     } catch (error) {
       console.log(error);
