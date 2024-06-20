@@ -25,11 +25,6 @@ const Dashboard = () => {
     }
   }, [session]);
 
-  useEffect(() => {
-    if (author) {
-      fetchBlogs();
-    }
-  }, [author]);
 
   const fetchBlogs = async () => {
     try {
@@ -40,6 +35,12 @@ const Dashboard = () => {
       console.error('Error fetching blogs:', error);
     }
   };
+
+  useEffect(() => {
+    if (author) {
+      fetchBlogs();
+    }
+  }, [author, fetchBlogs]);
 
   const handleKeyPress = (event) => {
     if (event.key === 'Enter') {

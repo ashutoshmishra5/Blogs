@@ -6,7 +6,7 @@ import Footer from "@/components/Footer/Footer";
 import Header from "@/components/Header/Header";
 
 
-export default RegisterPage = () => {
+const RegisterPage = () => {
     const router = useRouter();
     const [data, setData] = useState({
         name: '',
@@ -139,4 +139,6 @@ export default RegisterPage = () => {
 
         </>
     );
-}
+};
+
+export default RegisterPage;

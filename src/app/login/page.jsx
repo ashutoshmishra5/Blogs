@@ -7,7 +7,7 @@ import Footer from "@/components/Footer/Footer";
 import Header from "@/components/Header/Header";
 
 
-export default LogInPage = () => {
+const LogInPage = () => {
     const router = useRouter();
     const {data: session, status } = useSession();
 
@@ -128,4 +128,6 @@ export default LogInPage = () => {
 
         </>
     );
-}
+};
+
+export default LogInPage;
