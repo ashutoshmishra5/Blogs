@@ -2,7 +2,6 @@ import { NextResponse } from "next/server";
 import { Blog } from "../../../../lib/models";
 import { connectDb } from "@/app/lib/utils";
 
-
 export const GET = async (request, { params }) => {
     try {
         const {author} = params;
