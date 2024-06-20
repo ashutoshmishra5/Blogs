@@ -10,20 +10,20 @@ const Homepage = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const blogsPerPage = 5; // Number of blogs to display per page
 
-    useEffect(() => {
-        const fetchBlogs = async () => {
-            try {
-                const response = await fetch('/api/blogApi');
-                if (!response.ok) {
-                    throw new Error("Failed to fetch blogs");
-                }
-                const result = await response.json();
-                setBlogs(result);
-            } catch (error) {
-                alert("Error fetching Blogs");
+    const fetchBlogs = async () => {
+        try {
+            const response = await fetch('/api/blogApi');
+            if (!response.ok) {
+                throw new Error("Failed to fetch blogs");
             }
-        };
+            const result = await response.json();
+            setBlogs(result);
+        } catch (error) {
+            alert("Error fetching Blogs");
+        }
+    };
 
+    useEffect(() => {
         fetchBlogs();
     }, []);
 
