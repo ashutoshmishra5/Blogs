@@ -3,13 +3,11 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { signIn,useSession } from "next-auth/react";
-import Cards from "@/components/Cards/Cards";
 import Footer from "@/components/Footer/Footer";
 import Header from "@/components/Header/Header";
-import Image from "next/image";
-import Link from "next/link";
 
-export default function LogInPage() {
+
+export default LogInPage = () => {
     const router = useRouter();
     const {data: session, status } = useSession();
 
@@ -26,11 +24,12 @@ export default function LogInPage() {
         if (!pressed) {
             setPressed(true);
             setLoading(true);
-            const result = await signIn('credentials', {
-                ...data,
+            const response = await signIn('credentials', {
+                email: data.email,
+                password: data.password,
                 redirect: false,
             });
-            if (result.error) {
+            if (response.error) {
                 setPressed(false);
                 setLoading(false);
                 alert("Login unsuccessful");

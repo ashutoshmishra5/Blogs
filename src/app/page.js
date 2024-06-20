@@ -15,12 +15,12 @@ const Homepage = () => {
             try {
                 const response = await fetch('/api/blogApi');
                 if (!response.ok) {
-                    throw new Error('Failed to fetch blogs');
+                    throw new Error("Failed to fetch blogs");
                 }
                 const result = await response.json();
-                setBlogs(result.result);
+                setBlogs(result);
             } catch (error) {
-                setError(error.message);
+                alert("Error fetching Blogs");
             }
         };
 
@@ -36,7 +36,7 @@ const Homepage = () => {
     const indexOfFirstBlog = indexOfLastBlog - blogsPerPage;
     const blogsInThisPage = blogs.slice(indexOfFirstBlog, indexOfLastBlog);
 
-    // function to handle prev and net buttons
+    // function to handle prev and next buttons
     const nextPage = () => {
         setCurrentPage((prevPage) => prevPage + 1);
     };

@@ -1,21 +1,14 @@
-import mongoose from "mongoose";
 import { NextResponse } from "next/server";
-import { Blog } from "../../lib/models";
+import { connectDb } from "@/app/lib/utils";
+import { Blog } from "@/app/lib/models";
 
-// Define a flag variable to force dynamic serving
-export const dynamic = 'force-dynamic';
-
-async function connectDb() {
-    if (mongoose.connection.readyState) return;
-    await mongoose.connect(process.env.DATABASE_URL1, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
-}
-
-export async function GET() {
-    await connectDb();
-    const data = await Blog.find();
-    console.log(data);
-    return NextResponse.json({ result: data });
-}
+export const GET = async() => {
+    try{
+        await connectDb();
+        const data = await Blog.find();
+        return NextResponse.json(data);
+    }catch(err){
+        console.log(err);
+        return {error: "Something went wrong!"};
+    }
+};

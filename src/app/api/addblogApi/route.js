@@ -1,22 +1,18 @@
 import mongoose from 'mongoose';
 import { Blog } from '../../lib/models';
+import { connectDb } from '../../lib/utils'
+import { NextResponse } from "next/server";
 
-const connectDb = async () => {
-  if (mongoose.connection.readyState) return;
-  await mongoose.connect(process.env.DATABASE_URL1, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  });
-};
 
-export const POST = async (req, res) => {
+
+export const POST = async (request) => {
   await connectDb();
 
   try {
-    const { title, desc, date, author } = await req.json();
+    const { title, desc, date, author } = await request.json();
     const post = await Blog.create({ title, desc, date, author });
-    return new Response(JSON.stringify({ success: true, data: "Post Submitted" }), { status: 201 });
+    return NextResponse.json(JSON.stringify({ success: true, data: "Post Submitted" }), { status: 201 });
   } catch (error) {
-    return new Response(JSON.stringify({ success: false, data: "Error" }), { status: 400 });
+    return NextResponse.json(JSON.stringify({ success: false, data: "Error" }), { status: 400 });
   }
 };

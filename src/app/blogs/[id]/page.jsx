@@ -1,5 +1,4 @@
 'use client';
-import Cards from "@/components/Cards/Cards";
 import Footer from "@/components/Footer/Footer";
 import Header from "@/components/Header/Header";
 import { useEffect, useState } from 'react';
@@ -13,9 +12,8 @@ const BlogPage = ({ params }) => {
             try {
                 const response = await fetch(`/api/blogApi`);
                 const result = await response.json();
-                console.log(result);
-                if (result.result) {
-                    const selectedBlog = result.result.find(blog => blog._id === id);
+                if (result) {
+                    const selectedBlog = result.find(blog => blog._id === id);
                     setBlog(selectedBlog);
                 }
             } catch (error) {
@@ -31,6 +29,7 @@ const BlogPage = ({ params }) => {
     if (!blog) {
         return <div>Loading...</div>;
     }
+
     const paragraphs = blog.desc.split('\n');
 
     return (

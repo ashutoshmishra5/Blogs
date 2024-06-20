@@ -34,11 +34,8 @@ const Dashboard = () => {
   const fetchBlogs = async () => {
     try {
       const response = await fetch(`/api/blogApi/authorBlogsApi/${author}`);
-      if (!response.ok) {
-        throw new Error('Failed to fetch blogs');
-      }
       const result = await response.json();
-      setAuthorBlogs(result.result);
+      setAuthorBlogs(result);
     } catch (error) {
       console.error('Error fetching blogs:', error);
     }
@@ -77,10 +74,8 @@ const Dashboard = () => {
           author,
         }),
       });
-      console.log(desc);
 
-      const responseData = await response.json();
-      console.log("Hello");
+      const results = await response.json();
       if (response.ok) {
         if (updatingBlogId) {
           alert('Blog updated successfully');
@@ -95,10 +90,9 @@ const Dashboard = () => {
 
         fetchBlogs();
       } else {
-        alert(`Error ${updatingBlogId ? 'updating' : 'creating'} blog: ${responseData.error}`);
+        alert(`Error ${updatingBlogId ? 'updating' : 'creating'} blog: ${results.error}`);
       }
     } catch (error) {
-      console.error(`Error ${updatingBlogId ? 'updating' : 'creating'} blog:`, error);
       alert(`Error ${updatingBlogId ? 'updating' : 'creating'} blog`);
     }
   };
@@ -109,11 +103,11 @@ const Dashboard = () => {
         method: 'DELETE',
       });
       const result = await response.json();
-      if (result.result) {
-        setAuthorBlogs(authorBlogs.filter((blog) => blog._id !== id));
+      if (result) {
+        setAuthorBlogs(authorBlogs.filter((blog) => blog._id !== id)); //?
         alert('Blog deleted successfully');
       } else {
-        alert('Error deleting blog: ' + result.error);
+        alert('Error deleting blog: ');
       }
     } catch (error) {
       console.error('Error deleting blog:', error);

@@ -2,13 +2,11 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import Cards from "@/components/Cards/Cards";
 import Footer from "@/components/Footer/Footer";
 import Header from "@/components/Header/Header";
-import Image from "next/image";
-import Link from "next/link";
 
-export default function RegisterPage() {
+
+export default RegisterPage = () => {
     const router = useRouter();
     const [data, setData] = useState({
         name: '',
@@ -18,6 +16,7 @@ export default function RegisterPage() {
 
     const registerUser = async (e) => {
         e.preventDefault();
+        try{
         const response = await fetch('/api/register', {
             method: 'POST',
             headers: {
@@ -26,14 +25,16 @@ export default function RegisterPage() {
             body: JSON.stringify({data})
         });
 
-        const userInfo = await response.json();
+        const result = await response.json();
 
-        alert(userInfo.message);
-        if(userInfo.message === "Registered Successfully") {
+        alert(result.message);
+        if(result.message === "Registered Successfully") {
             router.push("/login");
         }
-
-        }
+    }catch(err){
+        alert("Registration Unsuccessful");
+    }
+        };
 
         
     return (
