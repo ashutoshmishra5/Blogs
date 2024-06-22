@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Footer from "@/components/Footer/Footer";
 import Header from "@/components/Header/Header";
-
+import { registerUser } from "../lib/authFunctions";
 
 const RegisterPage = () => {
     const router = useRouter();
@@ -14,26 +14,9 @@ const RegisterPage = () => {
         password: ''
     });
 
-    const registerUser = async (e) => {
+    const handleRegisterUser = async (e) => {
         e.preventDefault();
-        try{
-        const response = await fetch('/api/register', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({data})
-        });
-
-        const result = await response.json();
-
-        alert(result.message);
-        if(result.message === "Registered Successfully") {
-            router.push("/login");
-        }
-    }catch(err){
-        alert("Registration Unsuccessful");
-    }
+        registerUser(router,data);
         };
 
         
@@ -54,7 +37,7 @@ const RegisterPage = () => {
                             </h2>
 
                             <div className="mt-10">
-                            <form className="space-y-6" onSubmit={registerUser}>
+                            <form className="space-y-6" onSubmit={handleRegisterUser}>
                                 <div>
                                     <label htmlFor="name" className="block text-sm font-medium leading-6 text-gray-900">
                                         Name

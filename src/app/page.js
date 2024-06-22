@@ -3,46 +3,19 @@ import Cards from "@/components/Cards/Cards";
 import Footer from "@/components/Footer/Footer";
 import Header from "@/components/Header/Header";
 import { useEffect, useState } from 'react';
+import { fetchAllBlogs, handleNextPage, handlePrevPage, truncateText } from "./lib/blogFunctions";
 
 const Homepage = () => {
     const [blogs, setBlogs] = useState([]);
-    const [error, setError] = useState(null);
     const [currentPage, setCurrentPage] = useState(1);
-    const blogsPerPage = 5; // Number of blogs to display per page
-
-    const fetchBlogs = async () => {
-        try {
-            const response = await fetch('/api/blogApi');
-            if (!response.ok) {
-                throw new Error("Failed to fetch blogs");
-            }
-            const result = await response.json();
-            setBlogs(result);
-        } catch (error) {
-            alert("Error fetching Blogs");
-        }
-    };
-
-    useEffect(() => {
-        fetchBlogs();
-    }, []);
-
-    const truncateText = (text, limit) => {
-        const words = text.split(' ');
-        return words.length > limit ? words.slice(0, limit).join(' ') + '...' : text;
-    };
-
+    const blogsPerPage = 5; // Number of blogs to display per 
     const indexOfLastBlog = currentPage * blogsPerPage;
     const indexOfFirstBlog = indexOfLastBlog - blogsPerPage;
     const blogsInThisPage = blogs.slice(indexOfFirstBlog, indexOfLastBlog);
 
-    // function to handle prev and next buttons
-    const nextPage = () => {
-        setCurrentPage((prevPage) => prevPage + 1);
-    };
-    const prevPage = () => {
-        setCurrentPage((prevPage) => prevPage - 1);
-    };
+    useEffect(() => {
+        fetchAllBlogs(setBlogs);
+    }, []);
 
     return (
         <div className="container-flex grid grid-cols-10">
@@ -66,12 +39,12 @@ const Homepage = () => {
                     {blogs.length > blogsPerPage && (
                         <div className="flex justify-center">
                             {currentPage > 1 && (
-                                <button onClick={prevPage} className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-l">
+                                <button onClick={() => handlePrevPage(setCurrentPage)} className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-l">
                                     Previous
                                 </button>
                             )}
                             {blogsInThisPage.length === blogsPerPage && (
-                                <button onClick={nextPage} className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-r">
+                                <button onClick={() => handleNextPage(setCurrentPage)} className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-r">
                                     Next
                                 </button>
                             )}

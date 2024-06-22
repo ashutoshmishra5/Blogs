@@ -1,4 +1,5 @@
 'use client';
+import { fetchBlogbyId } from "@/app/lib/blogFunctions";
 import Footer from "@/components/Footer/Footer";
 import Header from "@/components/Header/Header";
 import { useEffect, useState } from 'react';
@@ -7,22 +8,10 @@ const BlogPage = ({ params }) => {
     const { id } = params;
     const [blog, setBlog] = useState(null);
 
-    useEffect(() => {
-        const fetchBlog = async () => {
-            try {
-                const response = await fetch(`/api/blogApi`);
-                const result = await response.json();
-                if (result) {
-                    const selectedBlog = result.find(blog => blog._id === id);
-                    setBlog(selectedBlog);
-                }
-            } catch (error) {
-                console.error('Error fetching data:', error);
-            }
-        };
 
+    useEffect(() => {
         if (id) {
-            fetchBlog();
+            fetchBlogbyId(id,blog,setBlog);
         }
     }, [id]);
 

@@ -9,7 +9,8 @@ export const POST = async (request) => {
   await connectDb();
 
   try {
-    const { title, desc, date, author } = await request.json();
+    const {data} = await request.json();
+    const { title, desc, date, author } = data;
     const post = await Blog.create({ title, desc, date, author });
     return NextResponse.json({data: "Post Submitted" });
   } catch (error) {

@@ -4,123 +4,61 @@ import React, { useState, useEffect } from 'react';
 import Footer from '@/components/Footer/Footer';
 import Header from '@/components/Header/Header';
 import Link from 'next/link';
+import { deleteBlog, fetchAuthorBlogs, submitBlog, truncateText } from '../lib/blogFunctions';
 
 const Dashboard = () => {
   const { data: session, status } = useSession();
-  const [title, setTitle] = useState('');
-  const [desc, setDesc] = useState('');
-  const [author, setAuthor] = useState('');
-  const [date, setDate] = useState(() => {
-    const now = new Date();
-    return `${now.getDate()}-${now.getMonth() + 1}-${now.getFullYear()}`;
-  });
+
+  const [data,setData] = useState(
+    () =>
+      {
+      const now = new Date();
+      return {
+      title : "",
+      desc : "",
+      author : "",
+      date : `${now.getDate()}-${now.getMonth() + 1}-${now.getFullYear()}`,
+    }}
+  );
 
   const [authorBlogs, setAuthorBlogs] = useState([]);
-  const [showButton, setShowButton] = useState(false);
   const [updatingBlogId, setUpdatingBlogId] = useState(null); 
+  const [showButton, setShowButton] = useState(false);
 
   useEffect(() => {
     if (session?.user?.name) {
-      setAuthor(session.user.name);
+       setData((prevData) => ({...prevData, author: session?.user.name}));
     }
   }, [session]);
 
 
-  const fetchBlogs = async () => {
-    try {
-      const response = await fetch(`/api/blogApi/authorBlogsApi/${author}`);
-      const result = await response.json();
-      setAuthorBlogs(result);
-    } catch (error) {
-      console.error('Error fetching blogs:', error);
-    }
-  };
-
   useEffect(() => {
-    if (author) {
-      fetchBlogs();
+    if (data.author) {
+      fetchAuthorBlogs(data.author,setAuthorBlogs);
     }
-  }, [author, fetchBlogs]);
+  },[data.author]);
+
 
   const handleKeyPress = (event) => {
     if (event.key === 'Enter') {
       event.preventDefault();
       const { selectionStart, selectionEnd } = event.target;
-      const newDesc = desc.substring(0, selectionStart) + '\n' + desc.substring(selectionEnd);
-      setDesc(newDesc);
+      const newDesc = data.desc.substring(0, selectionStart) + '\n' + data.desc.substring(selectionEnd);
+      setData((prevData) =>({...prevData, desc: newDesc}));
       event.target.selectionStart = event.target.selectionEnd = selectionStart + 1;
     }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      let url = '/api/addblogApi';
-      let method = 'POST';
-
-      if (updatingBlogId) {
-        url = `/api/blogApi/updateBlogs/${updatingBlogId}`;
-        method = 'PUT';
-      }
-
-      const response = await fetch(url, {
-        method,
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          title,
-          desc,
-          date,
-          author,
-        }),
-      });
-
-      const results = await response.json();
-      if (response.ok) {
-        if (updatingBlogId) {
-          alert('Blog updated successfully');
-        } else {
-          alert('Blog created successfully');
-        }
-
-        setTitle('');
-        setDesc('');
-        setDate(`${new Date().getDate()}-${new Date().getMonth() + 1}-${new Date().getFullYear()}`);
-        setUpdatingBlogId(null);
-
-        fetchBlogs();
-      } else {
-        alert(`Error ${updatingBlogId ? 'updating' : 'creating'} blog: ${results.error}`);
-      }
-    } catch (error) {
-      alert(`Error ${updatingBlogId ? 'updating' : 'creating'} blog`);
-    }
-  };
-
-  const deleteBlog = async (id) => {
-    try {
-      const response = await fetch(`/api/blogApi/deleteBlogs/${id}`, {
-        method: 'DELETE',
-      });
-      const result = await response.json();
-      if (result) {
-        setAuthorBlogs(authorBlogs.filter((blog) => blog._id !== id)); //?
-        alert('Blog deleted successfully');
-      } else {
-        alert('Error deleting blog: ');
-      }
-    } catch (error) {
-      console.error('Error deleting blog:', error);
-      alert('Error deleting blog');
-    }
+    submitBlog(updatingBlogId,data,setData,setUpdatingBlogId,setAuthorBlogs);
   };
 
   const startUpdate = (blogId) => {
     const blogToUpdate = authorBlogs.find((blog) => blog._id === blogId);
     if (blogToUpdate) {
-      setTitle(blogToUpdate.title);
-      setDesc(blogToUpdate.desc);
+      setData((prevData)=>({...prevData, title: blogToUpdate.title}));
+      setData((prevData)=>({...prevData, desc: blogToUpdate.desc}));
       setUpdatingBlogId(blogId);
     }
   };
@@ -137,15 +75,15 @@ const Dashboard = () => {
               className="container flex flex-row items-center justify-center mt-8"
               type="text"
               placeholder="Title"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
+              value={data.title}
+              onChange={(e) => setData({...data, title: e.target.value})}
               required
             />
             <textarea
               className="container flex flex-row items-center justify-center mt-8"
               placeholder="Description"
-              value={desc}
-              onChange={(e) => setDesc(e.target.value)}
+              value={data.desc}
+              onChange={(e) => setData({...data, desc: e.target.value})}
               onKeyDown={handleKeyPress}
               required
             />
@@ -170,6 +108,7 @@ const Dashboard = () => {
                 <tr>
                   <th>Index</th>
                   <th>Title</th>
+                  <th>Desc</th>
                   <th>Actions</th>
                 </tr>
               </thead>
@@ -181,8 +120,11 @@ const Dashboard = () => {
                       <Link href={`/blogs/${authorBlog._id}`}>{authorBlog.title}</Link>
                     </td>
                     <td>
-                      <button onClick={() => startUpdate(authorBlog._id)}>Update</button>
-                      <button onClick={() => deleteBlog(authorBlog._id)}>Delete</button>
+                      {truncateText(authorBlog.desc,10)}
+                    </td>
+                    <td>
+                      <button onClick={() => startUpdate(authorBlog._id,setAuthorBlogs)}>Update</button>
+                      <button onClick={() => deleteBlog(authorBlog._id,authorBlogs,setAuthorBlogs)}>Delete</button>
                     </td>
                   </tr>
                 ))}

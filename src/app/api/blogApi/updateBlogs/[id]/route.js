@@ -10,7 +10,9 @@ export const PUT = async (request, { params }) => {
   
     try{
       await connectDb();
-      const { title, desc, date, author } = await request.json();
+      const {data} = await request.json();
+      const { title, desc, date, author } = data;
+
       const updatedPost = await Blog.findByIdAndUpdate(id, { title, desc, date, author });
       return NextResponse.json(updatedPost);
     }catch(err){

@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { signIn,useSession } from "next-auth/react";
 import Footer from "@/components/Footer/Footer";
 import Header from "@/components/Header/Header";
-
+import { loginUser } from "../lib/authFunctions";
 
 const LogInPage = () => {
     const router = useRouter();
@@ -17,34 +17,18 @@ const LogInPage = () => {
     });
 
     const [pressed, setPressed] = useState(false);
-    const [loading, setLoading] = useState(false);
 
-    const loginUser = async (e) => {
+    const HandleloginUser = async (e) => {
         e.preventDefault();
-        if (!pressed) {
-            setPressed(true);
-            setLoading(true);
-            const response = await signIn('credentials', {
-                email: data.email,
-                password: data.password,
-                redirect: false,
-            });
-            if (response.error) {
-                setPressed(false);
-                setLoading(false);
-                alert("Login unsuccessful");
-            }
-        }
+        loginUser(pressed,data,setPressed,signIn);
     };
 
     useEffect(() => {
         if (status === 'authenticated') {
-            setLoading(false);
             alert("Login successful");
             router.push("/dashboard");
         } else if (status === 'unauthenticated' && pressed) {
             setPressed(false);
-            setLoading(false);
         }
     }, [status, pressed, router]);
 
@@ -62,7 +46,7 @@ const LogInPage = () => {
                         Sign in to your account
                     </h2>
                     <div className="mt-10">
-                    <form className="space-y-6" onSubmit={loginUser}>
+                    <form className="space-y-6" onSubmit={HandleloginUser}>
                         <div>
                             <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
                                 Email address
