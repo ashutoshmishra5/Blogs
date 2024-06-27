@@ -7,13 +7,13 @@ const Cards = ({key,title,desc,href,author,date,imgUrl}) => {
                 <div className="py-1">
                         <div className="rounded-xl container overflow-hidden bg-gray-200 transform hover:-translate-y-1 hover:shadow-lg duration-1000">
                                 <a href={href}>
-                                <div className="flex">
+                                <div className="sm:flex flex-row">
 
-                                <div className="rounded-xl flex justify-center px-1 py-2 relative w-1/4 h-60">
+                                <div className="rounded-xl flex justify-center px-1 py-2 relative sm:w-1/4 h-60">
                                     <Image className="rounded-xl overflow-hidden object-cover" src={imgUrl} height={700} width={700} />
                                 </div>
 
-                                <div className="flex-row w-3/4">
+                                <div className="flex-row sm:w-3/4 h-60">
                                     <div className="flex"><h1 className="my-4 mx-4 text-xl font-semibold">{title}</h1></div>
                                     <div className="flex bg-slate-200">
                                         <div className='text-xs pl-4'>Written By <span className="font-medium">{author}</span></div>
