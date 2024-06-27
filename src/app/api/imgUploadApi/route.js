@@ -11,9 +11,7 @@ const s3Client = new S3Client({
 });
 
 async function uploadFileToS3(file, fileName) {
-
 	const fileBuffer = file;
-
 	const data = {
 		Bucket: process.env.AWS_S3_BUCKET_NAME,
 		Key: `${fileName}`,
@@ -25,10 +23,7 @@ async function uploadFileToS3(file, fileName) {
 	await s3Client.send(command);
 	
 	const objectUrl = `https://${process.env.AWS_S3_BUCKET_NAME}.s3.${process.env.AWS_S3_REGION}.amazonaws.com/${fileName}`;
-
 	return objectUrl;
-  
-
 }
 
 export async function POST(request) {
