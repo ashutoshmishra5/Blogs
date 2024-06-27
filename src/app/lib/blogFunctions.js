@@ -72,6 +72,7 @@ export const deleteBlog = async (id,authorBlogs,setAuthorBlogs) => {
       alert('Error deleting blog');
     }
   };
+  
 export const submitBlog = async (updatingBlogId,data,setData,setUpdatingBlogId,setAuthorBlogs) => {
   try {
     let url = '/api/addblogApi';

@@ -26,7 +26,7 @@ const Homepage = () => {
                     {blogsInThisPage.length > 0 ? (
                         <ul>
                             {blogsInThisPage.map((blog) => (
-                                <Cards key={blog._id} title={blog.title} author={blog.author} date={blog.date} desc={truncateText(blog.desc, 60)} href={`/blogs/${blog._id}`} />
+                                <Cards key={blog._id} title={blog.title} author={blog.author} date={blog.date} imgUrl={blog.imgUrl} desc={truncateText(blog.desc, 60)} href={`/blogs/${blog._id}`} />
                             ))}
                         </ul>
                     ) : (
@@ -53,7 +53,7 @@ const Homepage = () => {
                 </div>
                 <Footer />
             </div>
-            <div className="md:col-span-2 bg-blue-200"></div>
+            <div className="md:col-span-2 bg-blue-200" ></div>
         </div>
     );
 };

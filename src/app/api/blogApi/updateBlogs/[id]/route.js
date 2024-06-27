@@ -11,9 +11,9 @@ export const PUT = async (request, { params }) => {
     try{
       await connectDb();
       const {data} = await request.json();
-      const { title, desc, date, author } = data;
+      const { title, desc, date, author,imgUrl } = data;
 
-      const updatedPost = await Blog.findByIdAndUpdate(id, { title, desc, date, author });
+      const updatedPost = await Blog.findByIdAndUpdate(id, { title, desc, date, author,imgUrl });
       return NextResponse.json(updatedPost);
     }catch(err){
       console.log(err);
