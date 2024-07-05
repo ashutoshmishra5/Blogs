@@ -10,8 +10,8 @@ export const POST = async (request) => {
 
   try {
     const {data} = await request.json();
-    const { title, desc, date, author, imgUrl } = data;
-    const post = await Blog.create({ title, desc, date, author, imgUrl });
+    const { title, desc, date, author, imgUrl, category } = data;
+    const post = await Blog.create({ title, desc, date, author, imgUrl, category });
     return NextResponse.json({data: "Post Submitted" });
   } catch (error) {
     return NextResponse.json({ error: "Failed to submit post" });

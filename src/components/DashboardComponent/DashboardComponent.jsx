@@ -2,7 +2,7 @@
 import { useSession } from 'next-auth/react';
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { deleteBlog, fetchAuthorBlogs, submitBlog, truncateText } from '@/app/lib/blogFunctions';
+import { deleteBlog, fetchAuthorBlogs, submitBlog, truncateText,fetchCategoryBlogs } from '@/app/lib/blogFunctions';
 
 const DashboardComponent = () => {
     
@@ -18,9 +18,11 @@ const [data,setData] = useState(
     author : "",
     date : `${now.getDate()}-${now.getMonth() + 1}-${now.getFullYear()}`,
     imgUrl : "",
+    category : "",
   }}
 );
 
+const [categoryBlogs, setCategoryBlogs] = useState([]);
 const [authorBlogs, setAuthorBlogs] = useState([]);
 const [updatingBlogId, setUpdatingBlogId] = useState(null); 
 const [showButton, setShowButton] = useState(false);
@@ -60,6 +62,7 @@ const startUpdate = (blogId) => {
     setData((prevData)=>({...prevData, title: blogToUpdate.title}));
     setData((prevData)=>({...prevData, desc: blogToUpdate.desc}));
     setData((prevData)=>({...prevData, imgUrl: blogToUpdate.imgUrl}));
+    setData((prevData)=>({...prevData, category: blogToUpdate.category}));
     setUpdatingBlogId(blogId);
   }
 };
@@ -75,11 +78,10 @@ const handleFileImgChange = (e) => {
 const handleImgSubmit = async (e) => {
   e.preventDefault();
   if (!file) return;
-
   const formData = new FormData();
   formData.append("file", file);
   try {
-    const response = await fetch("/api/imgUploadApi", {
+    const response = await fetch("/api/addblogApi/addImgApi", {
       method: "POST",
       body: formData,
     });
@@ -132,6 +134,21 @@ const handleImgSubmit = async (e) => {
               onKeyDown={handleKeyPress}
               required
             />
+            <div className='container flex flex-row mt-8'>
+              <label for="category">Choose a Category: </label>
+              <select
+              className="items-center justify-center ml-2"
+              value={data.category}
+              onChange={(e) => setData({ ...data, category: e.target.value })}
+              >
+                <option value="sports">Sports</option>
+                <option value="politics">Politics</option>
+                <option value="bollywood">Bollywood</option>
+              </select>
+
+            </div>
+            
+
             <button disabled={uploading || (!file && !updatingBlogId)}
               className="container flex flex-row items-center justify-center mt-8 ml-auto bg-slate-500 text-white px-4 py-2 rounded"
               type="submit"

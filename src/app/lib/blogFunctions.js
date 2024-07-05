@@ -4,7 +4,7 @@
 // HomePage Functions
 export const fetchAllBlogs = async (setBlogs) => {
     try {
-        const response = await fetch('/api/blogApi');
+        const response = await fetch('/api/fetchBlogApi');
         if (!response.ok) {
             throw new Error("Failed to fetch blogs");
         }
@@ -32,7 +32,7 @@ export const handlePrevPage = (setCurrentPage) => {
 
 export const fetchBlogbyId = async (id,blog,setBlog) => {
   try {
-      const response = await fetch(`/api/blogApi`);
+      const response = await fetch(`/api/fetchBlogApi`);
       const result = await response.json();
       if (result) {
           const selectedBlog = result.find(blog => blog._id === id);
@@ -47,7 +47,7 @@ export const fetchBlogbyId = async (id,blog,setBlog) => {
 
 export const fetchAuthorBlogs = async (author,setAuthorBlogs) => {
     try {
-      const response = await fetch(`/api/blogApi/authorBlogsApi/${author}`);
+      const response = await fetch(`/api/fetchBlogApi/authorBlogsApi/${author}`);
       const result = await response.json();
       setAuthorBlogs(result);
     } catch (error) {
@@ -55,9 +55,22 @@ export const fetchAuthorBlogs = async (author,setAuthorBlogs) => {
     }
   };
 
+  export const fetchCategoryBlogs = async (category,setBlogs) => {
+    try {
+      const response = await fetch(`/api/fetchBlogApi/categoryBlogsApi/${category}`);
+      const result = await response.json();
+      setBlogs(result);
+    } catch (error) {
+      console.error('Error fetching blogs:', error);
+    }
+  };
+
+
+
+
 export const deleteBlog = async (id,authorBlogs,setAuthorBlogs) => {
     try {
-      const response = await fetch(`/api/blogApi/deleteBlogs/${id}`, {
+      const response = await fetch(`/api/fetchBlogApi/deleteBlogs/${id}`, {
         method: 'DELETE',
       });
       const result = await response.json();
@@ -79,7 +92,7 @@ export const submitBlog = async (updatingBlogId,data,setData,setUpdatingBlogId,s
     let method = 'POST';
 
     if (updatingBlogId) {
-      url = `/api/blogApi/updateBlogs/${updatingBlogId}`;
+      url = `/api/fetchBlogApi/updateBlogs/${updatingBlogId}`;
       method = 'PUT';
     }
 
@@ -104,6 +117,7 @@ export const submitBlog = async (updatingBlogId,data,setData,setUpdatingBlogId,s
         title: "",
         desc: "",
         date: `${new Date().getDate()}-${new Date().getMonth() + 1}-${new Date().getFullYear()}`,
+        category: "",
       }));
       setUpdatingBlogId(null);
 

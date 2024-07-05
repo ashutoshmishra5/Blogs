@@ -3,10 +3,11 @@ import Cards from "@/components/Cards/Cards";
 import Footer from "@/components/Footer/Footer";
 import Header from "@/components/Header/Header";
 import { useEffect, useState } from 'react';
-import { fetchAllBlogs, handleNextPage, handlePrevPage, truncateText } from "./lib/blogFunctions";
+import { fetchAllBlogs, handleNextPage, handlePrevPage, truncateText,fetchCategoryBlogs } from "./lib/blogFunctions";
 
 const Homepage = () => {
     const [blogs, setBlogs] = useState([]);
+    const [category, setCategory] = useState("");
     const [currentPage, setCurrentPage] = useState(1);
     const blogsPerPage = 5; // Number of blogs to display per 
     const indexOfLastBlog = currentPage * blogsPerPage;
@@ -14,14 +15,28 @@ const Homepage = () => {
     const blogsInThisPage = blogs.slice(indexOfFirstBlog, indexOfLastBlog);
 
     useEffect(() => {
+        if(category==="undefined"||category==="") {
         fetchAllBlogs(setBlogs);
-    }, []);
+        }else {
+        fetchCategoryBlogs(category,setBlogs);
+        }
+    }, [category]);
 
     return (
         <div className="container-flex grid grid-cols-10">
             <div className="md:col-span-2 bg-blue-200"></div>
             <div className="col-span-10 md:col-span-6 bg-blue-200 px-2">
                 <Header />
+                <div className="container mx-auto">
+                   <ul className="flex items-center justify-center space-x-4">
+                        <label>category: </label>
+                        
+                        <button type ="button" onClick={() => setCategory("")} >all</button>
+                        <button type ="button" onClick={() => setCategory("sports")} className={'rounded-md overflow-hidden object-cover ' + (category === 'sports' ? 'bg-blue-50' : '')}>sports</button>
+                        <button type ="button" onClick={() => setCategory("politics")} className={'rounded-md overflow-hidden object-cover ' + (category === 'politics' ? 'bg-blue-50' : '')}>politics</button>
+                        <button type ="button" onClick={() => setCategory("bollywood")} className={'rounded-md overflow-hidden object-cover ' + (category === 'bollywood' ? 'bg-blue-50' : '')}>bollywood</button>
+                    </ul>
+                    </div>
                 <div>
                     {blogsInThisPage.length > 0 ? (
                         <ul>

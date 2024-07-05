@@ -6,8 +6,9 @@ const blogSchema = new mongoose.Schema(
     desc: { type: String, required: true },
     date: { type: String, required: false },
     author: { type: String, required: false },
-    imgUrl: { type: String, required: false }
-}
+    imgUrl: { type: String, required: false },
+    category: { type: String, required: false }
+    }
 );
 
 export const Blog = mongoose.models?.Blog || mongoose.model('Blog', blogSchema);
