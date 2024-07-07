@@ -17,7 +17,7 @@ const CommentComponent = ({ blogId }) => {
 
   useEffect(()=>{
     fetchCommentbyId();
-  },[showComments,fetchCommentbyId]);
+  },[fetchCommentbyId]);
 
     return (
         <>
