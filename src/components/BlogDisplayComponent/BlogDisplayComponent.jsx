@@ -33,7 +33,7 @@ const BlogDisplayComponent = ({ id }) => {
             </div>
 
             <div className="flex justify-center py-4 px-4 bg-slate-50">
-                <Image className="object-cover" src={blog.imgUrl} height={1000} width={1000} />
+                <Image className="object-cover" src={blog.imgUrl} height={1000} width={1000} alt=""/>
             </div>
 
             <div className='text-md py-4 px-4 bg-slate-50 text-justify'>{paragraphs.map((paragraph,index)=>(<p key = {index} className={paragraph.length<40?'font-semibold my-4':''}>{paragraph}</p>))}</div>

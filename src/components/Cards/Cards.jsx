@@ -10,7 +10,7 @@ const Cards = ({key,title,desc,href,author,date,imgUrl}) => {
                                 <div className="sm:flex flex-row">
 
                                 <div className="rounded-xl flex justify-center px-1 py-2 relative sm:w-1/4 h-60">
-                                    <Image className="rounded-xl overflow-hidden object-cover" src={imgUrl} height={700} width={700} />
+                                    <Image className="rounded-xl overflow-hidden object-cover" src={imgUrl} height={700} width={700} alt="" />
                                 </div>
 
                                 <div className="flex-row sm:w-3/4 h-60">
