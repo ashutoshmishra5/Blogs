@@ -5,15 +5,16 @@ import { useState, useEffect } from "react";
 const CommentComponent = ({ blogId }) => {
   const [showComments,setShowComments] = useState(false);
   const [comments,setComments] = useState([]);
-  const fetchCommentbyId = async () => {
-    try{
+    const fetchCommentbyId = useCallback(async () => {
+    try {
       const response = await fetch(`/api/commentAPIs/fetchComments/${blogId}`);
       const result = await response.json();
       setComments(result);
-    } catch(error) {
-      return NextResponse.json("error: error getting Comments")
+    } catch (error) {
+      console.error("Error fetching comments:", error);
+      // Handle error appropriately, maybe show an error message
     }
-  } 
+  }, [blogId]);
 
   useEffect(()=>{
     fetchCommentbyId();
