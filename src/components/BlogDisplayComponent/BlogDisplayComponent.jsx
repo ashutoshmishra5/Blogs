@@ -12,7 +12,7 @@ const BlogDisplayComponent = ({ id }) => {
         if (id) {
             fetchBlogbyId(id,blog,setBlog);
         }
-    }, [id]);
+    }, [id,blog]);
 
     if (!blog) {
         return <div>Loading...</div>;
