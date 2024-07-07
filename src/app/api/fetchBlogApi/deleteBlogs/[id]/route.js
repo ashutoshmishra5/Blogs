@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { connectDb } from "@/app/lib/utils";
+import { connectDb1 } from "@/app/lib/utils";
 import { Blog } from "@/app/lib/models";
 
 export const dynamic = 'force-dynamic';
@@ -8,7 +8,7 @@ export const DELETE = async (request, { params }) => {
 
     try{
         const { id } = params;
-        await connectDb();
+        await connectDb1();
         const result = await Blog.findByIdAndDelete(id);
         return NextResponse.json(result);
     } catch (err) {

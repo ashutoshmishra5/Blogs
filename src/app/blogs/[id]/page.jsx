@@ -2,6 +2,9 @@
 import Footer from "@/components/Footer/Footer";
 import Header from "@/components/Header/Header";
 import BlogDisplayComponent from "@/components/BlogDisplayComponent/BlogDisplayComponent";
+import CommentComponent from "@/components/CommentComponent/CommentComponent";
+import CommentForm from "@/components/CommentForm/CommentForm";
+
 
 
 const BlogPage = ({ params }) => {
@@ -15,6 +18,8 @@ const BlogPage = ({ params }) => {
                 <div className="col-span-10 md:col-span-6 bg-blue-200 px-2">
                     <Header/>
                     <BlogDisplayComponent id = {id}/>
+                    <CommentComponent blogId = {id}/>
+                    <CommentForm blogId = {id}/>
                     <Footer/>
 
                 </div>

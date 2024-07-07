@@ -1,12 +1,12 @@
 import { Blog } from '../../lib/models';
-import { connectDb } from '../../lib/utils'
+import { connectDb1 } from '../../lib/utils'
 import { NextResponse } from "next/server";
 
 //force page to load dynamically
 export const dynamic = 'force-dynamic';
 
 export const POST = async (request) => {
-  await connectDb();
+  await connectDb1();
 
   try {
     const {data} = await request.json();
@@ -17,3 +17,4 @@ export const POST = async (request) => {
     return NextResponse.json({ error: "Failed to submit post" });
   }
 };
+

@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { connectDb } from '@/app/lib/utils';
+import { connectDb1 } from '@/app/lib/utils';
 import { Blog } from '@/app/lib/models';
 
 export const dynamic = 'force-dynamic';
@@ -9,7 +9,7 @@ export const PUT = async (request, { params }) => {
     const { id } = params;
   
     try{
-      await connectDb();
+      await connectDb1();
       const {data} = await request.json();
       const { title, desc, date, author,imgUrl } = data;
 
