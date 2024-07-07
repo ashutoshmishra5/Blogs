@@ -17,7 +17,7 @@ const CommentComponent = ({ blogId }) => {
 
   useEffect(()=>{
     fetchCommentbyId();
-  },[showComments]);
+  },[showComments,fetchCommentbyId]);
 
     return (
         <>
@@ -25,7 +25,7 @@ const CommentComponent = ({ blogId }) => {
           {showComments && (comments.length > 0 ? (
             <ul>
                 {comments.map((comment) => (
-                  <div>
+                  <div key = {comment._id}>
                     <div>{comment.commentDate}</div>
                     <div>{comment.commentAuthor}</div>
                     <div>{comment.blogComment}</div>
