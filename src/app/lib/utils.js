@@ -1,37 +1,31 @@
+// lib/utils.js
 import mongoose from 'mongoose';
+import { blogSchema, commentSchema } from './models';
 
-// To fetch Blogs
-const connection1 = {};
+let blogDb, commentDb, BlogModel, CommentModel;
 
-  export const connectDb1 = async () => {
-    try {
-      if(connection1.isConnected) {
-        console.log("Using existing connection");
-        return;
-      }
-      const db = await mongoose.connect(process.env.DATABASE_URL1);  
-      connection1.isConnected = db.connections[0].readyState;
-    } catch (error) {
-      console.log(error);
-      throw new Error(error);
-    }
-  };
+export const connectDb = async () => {
+  if (!blogDb) {
+    blogDb = mongoose.createConnection(process.env.DATABASE_URL1, {
+      useUnifiedTopology: true,
+      useNewUrlParser: true
+    });
+  }
 
-// To fetch Comments
-  const connection2 = {};
+  if (!commentDb) {
+    commentDb = mongoose.createConnection(process.env.DATABASE_URL2, {
+      useUnifiedTopology: true,
+      useNewUrlParser: true
+    });
+  }
 
-  
-  export const connectDb2 = async () => {
-    try {
-      if(connection2.isConnected) {
-        console.log("Using existing connection");
-        return;
-      }
-      const db = await mongoose.connect(process.env.DATABASE_URL2);  
-      connection2.isConnected = db.connections[0].readyState;
-    } catch (error) {
-      console.log(error);
-      throw new Error(error);
-    }
-  };
-  
+  if (!BlogModel) {
+    BlogModel = blogDb.model('Blog', blogSchema);
+  }
+
+  if (!CommentModel) {
+    CommentModel = commentDb.model('Comment', commentSchema);
+  }
+
+  return { BlogModel, CommentModel };
+};

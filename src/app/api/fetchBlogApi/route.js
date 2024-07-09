@@ -1,16 +1,16 @@
-import { NextResponse } from "next/server";
-import { Blog } from "../../lib/models";
-import { connectDb1 } from "@/app/lib/utils";
+// app/api/blogs/route.js
+import { connectDb } from '@/app/lib/utils';
+import { NextResponse } from 'next/server';
 
 export const dynamic = 'force-dynamic';
 
 export const GET = async () => {
-    try {
-        await connectDb1();
-        const data = await Blog.find(); 
-        return NextResponse.json(data);
-    } catch (err) {
-        console.log(err);
-        return NextResponse.json({error:"Failed to fetch posts!"});
+  try {
+    const { BlogModel } = await connectDb();
+    const blogs = await BlogModel.find();
+    return NextResponse.json(blogs);
+  } catch (err) {
+    console.error(err);
+    return NextResponse.json({ error: 'Failed to fetch blogs!' });
   }
 };

@@ -5,6 +5,8 @@ import { useState, useEffect } from "react";
 const CommentComponent = ({ blogId }) => {
   const [showComments,setShowComments] = useState(false);
   const [comments,setComments] = useState([]);
+
+  
   const fetchCommentbyId = async () => {
     try{
       const response = await fetch(`/api/commentAPIs/fetchComments/${blogId}`);
@@ -17,7 +19,7 @@ const CommentComponent = ({ blogId }) => {
 
   useEffect(()=>{
     fetchCommentbyId();
-  },[showComments]);
+  },[]);
 
     return (
         <>

@@ -8,11 +8,11 @@ const BlogDisplayComponent = ({ id }) => {
     const [blog, setBlog] = useState(null);
 
 
-    useEffect(() => {
+    useEffect((blog) => {
         if (id) {
             fetchBlogbyId(id,blog,setBlog);
         }
-    }, [id]);
+    }, []);
 
     if (!blog) {
         return <div>Loading...</div>;
