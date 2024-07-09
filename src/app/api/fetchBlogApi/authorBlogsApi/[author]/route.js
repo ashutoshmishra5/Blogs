@@ -1,14 +1,13 @@
 import { NextResponse } from "next/server";
-import { Blog } from "../../../../lib/models";
-import { connectDb1 } from "@/app/lib/utils";
+import { connectDb } from '@/app/lib/utils';
 
 export const dynamic = 'force-dynamic';
 
 export const GET = async (request, { params }) => {
     try {
         const {author} = params;
-        await connectDb1();
-        const data = await Blog.find({ author }); 
+        const { BlogModel } = await connectDb();
+        const data = await BlogModel.find({ author }); 
         return NextResponse.json(data);
     } catch (err) {
         console.log(err);

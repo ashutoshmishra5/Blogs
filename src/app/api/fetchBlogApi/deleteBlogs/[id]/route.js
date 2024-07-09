@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
-import { connectDb1 } from "@/app/lib/utils";
-import { Blog } from "@/app/lib/models";
+import { connectDb } from '@/app/lib/utils';
+
 
 export const dynamic = 'force-dynamic';
 
@@ -8,8 +8,8 @@ export const DELETE = async (request, { params }) => {
 
     try{
         const { id } = params;
-        await connectDb1();
-        const result = await Blog.findByIdAndDelete(id);
+        const { BlogModel } = await connectDb();
+        const result = await BlogModel.findByIdAndDelete(id);
         return NextResponse.json(result);
     } catch (err) {
         console.log(err);
