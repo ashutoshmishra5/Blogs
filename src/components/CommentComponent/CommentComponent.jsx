@@ -5,14 +5,10 @@ import { useState, useEffect } from "react";
 const CommentComponent = ({ blogId }) => {
   const [showComments,setShowComments] = useState(false);
   const [comments,setComments] = useState([]);
-<<<<<<< HEAD
-    const fetchCommentbyId = async () => {
-    try {
-=======
+
   
   const fetchCommentbyId = async () => {
     try{
->>>>>>> 52dbc8b3e9eaec491b100662e91902a21e78132a
       const response = await fetch(`/api/commentAPIs/fetchComments/${blogId}`);
       const result = await response.json();
       setComments(result);
