@@ -26,18 +26,18 @@ const Homepage = () => {
 
     return (
         <div className="container-flex grid grid-cols-10">
-            <div className="md:col-span-2 bg-blue-200"></div>
-            <div className="col-span-10 md:col-span-6 bg-blue-200 px-2">
+            <div className="md:col-span-1 lg:col-span-2 bg-blue-200"></div>
+            <div className="col-span-10 md:col-span-8 lg:col-span-6 bg-blue-200 px-2">
                 <Header />
-                <div className="container mx-auto">
-                   <ul className="flex items-center justify-center space-x-4">
+                <div className="container my-2">
+                   <div className="flex items-center justify-center space-x-4">
                         <label>category: </label>
                         
-                        <button type ="button" onClick={() => setCategory("")} >all</button>
-                        <button type ="button" onClick={() => setCategory("sports")} className={'rounded-md overflow-hidden object-cover ' + (category === 'sports' ? 'bg-blue-50' : '')}>sports</button>
-                        <button type ="button" onClick={() => setCategory("politics")} className={'rounded-md overflow-hidden object-cover ' + (category === 'politics' ? 'bg-blue-50' : '')}>politics</button>
-                        <button type ="button" onClick={() => setCategory("bollywood")} className={'rounded-md overflow-hidden object-cover ' + (category === 'bollywood' ? 'bg-blue-50' : '')}>bollywood</button>
-                    </ul>
+                        <button className="block px-2 py-2" type ="button" onClick={() => setCategory("")} >all</button>
+                        <button type ="button" onClick={() => setCategory("sports")} className={'block px-1 py-1 rounded-2xl overflow-hidden object-cover ' + (category === 'sports' ? 'bg-blue-50' : '')}>sports</button>
+                        <button type ="button" onClick={() => setCategory("politics")} className={'block px-1 py-1 rounded-2xl overflow-hidden object-cover ' + (category === 'politics' ? 'bg-blue-50' : '')}>politics</button>
+                        <button type ="button" onClick={() => setCategory("bollywood")} className={'block px-1 py-1 rounded-2xl overflow-hidden object-cover ' + (category === 'bollywood' ? 'bg-blue-50' : '')}>bollywood</button>
+                    </div>
                     </div>
                 <div>
                     {blogsInThisPage.length > 0 ? (
@@ -47,7 +47,7 @@ const Homepage = () => {
                             ))}
                         </ul>
                     ) : (
-                        <p>No blogs available</p>
+                        <p>Loading...</p>
                     )}
 
                     <div className="flex justify-center text-xs mt-4">Page : {currentPage}</div>
@@ -56,12 +56,12 @@ const Homepage = () => {
                     {blogs.length > blogsPerPage && (
                         <div className="flex justify-center">
                             {currentPage > 1 && (
-                                <button onClick={() => handlePrevPage(setCurrentPage)} className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-l">
+                                <button onClick={() => handlePrevPage(setCurrentPage)} className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-2xl">
                                     Previous
                                 </button>
                             )}
                             {blogsInThisPage.length === blogsPerPage && (
-                                <button onClick={() => handleNextPage(setCurrentPage)} className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-r">
+                                <button onClick={() => handleNextPage(setCurrentPage)} className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-2xl">
                                     Next
                                 </button>
                             )}
@@ -70,9 +70,10 @@ const Homepage = () => {
                 </div>
                 <Footer />
             </div>
-            <div className="md:col-span-2 bg-blue-200" ></div>
+            <div className="md:col-span-1 lg:col-span-2 bg-blue-200" ></div>
         </div>
     );
 };
 
 export default Homepage;
+// If this page dont fetch, open blog/id page on browser and then return to this page

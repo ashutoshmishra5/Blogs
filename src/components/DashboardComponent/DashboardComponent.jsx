@@ -22,7 +22,6 @@ const [data,setData] = useState(
   }}
 );
 
-const [categoryBlogs, setCategoryBlogs] = useState([]);
 const [authorBlogs, setAuthorBlogs] = useState([]);
 const [updatingBlogId, setUpdatingBlogId] = useState(null); 
 const [showButton, setShowButton] = useState(false);
@@ -59,10 +58,13 @@ const handleSubmit = async (e) => {
 const startUpdate = (blogId) => {
   const blogToUpdate = authorBlogs.find((blog) => blog._id === blogId);
   if (blogToUpdate) {
-    setData((prevData)=>({...prevData, title: blogToUpdate.title}));
-    setData((prevData)=>({...prevData, desc: blogToUpdate.desc}));
-    setData((prevData)=>({...prevData, imgUrl: blogToUpdate.imgUrl}));
-    setData((prevData)=>({...prevData, category: blogToUpdate.category}));
+    setData( (prevData)=>
+      ({...prevData, 
+      title: blogToUpdate.title, 
+      desc: blogToUpdate.desc, 
+      imgUrl: blogToUpdate.imgUrl, 
+      category: blogToUpdate.category })
+    );
     setUpdatingBlogId(blogId);
   }
 };
