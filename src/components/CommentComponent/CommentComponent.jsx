@@ -5,6 +5,10 @@ import { useState, useEffect } from "react";
 const CommentComponent = ({ blogId }) => {
   const [showComments,setShowComments] = useState(false);
   const [comments,setComments] = useState([]);
+<<<<<<< HEAD
+=======
+
+>>>>>>> 8cf698589050b3d78e41f824971dbdf81c2f6228
   
   const fetchCommentbyId = async () => {
     try{
