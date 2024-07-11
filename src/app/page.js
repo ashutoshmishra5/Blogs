@@ -25,18 +25,19 @@ const Homepage = () => {
     }, [category]);
 
     return (
+        <>
+        <Header/>
         <div className="container-flex grid grid-cols-10">
             <div className="md:col-span-1 lg:col-span-2 bg-blue-200"></div>
             <div className="col-span-10 md:col-span-8 lg:col-span-6 bg-blue-200 px-2">
-                <Header />
                 <div className="container my-2">
                    <div className="flex items-center justify-center space-x-4">
                         <label>category: </label>
                         
                         <button className="block px-2 py-2" type ="button" onClick={() => setCategory("")} >all</button>
-                        <button type ="button" onClick={() => setCategory("sports")} className={'block px-1 py-1 rounded-2xl overflow-hidden object-cover ' + (category === 'sports' ? 'bg-blue-50' : '')}>sports</button>
-                        <button type ="button" onClick={() => setCategory("politics")} className={'block px-1 py-1 rounded-2xl overflow-hidden object-cover ' + (category === 'politics' ? 'bg-blue-50' : '')}>politics</button>
-                        <button type ="button" onClick={() => setCategory("bollywood")} className={'block px-1 py-1 rounded-2xl overflow-hidden object-cover ' + (category === 'bollywood' ? 'bg-blue-50' : '')}>bollywood</button>
+                        <button type ="button" onClick={() => setCategory("mobiles")} className={'block px-1 py-1 rounded-2xl overflow-hidden object-cover ' + (category === 'sports' ? 'bg-blue-50' : '')}>Mobiles</button>
+                        <button type ="button" onClick={() => setCategory("technology")} className={'block px-1 py-1 rounded-2xl overflow-hidden object-cover ' + (category === 'politics' ? 'bg-blue-50' : '')}>Technology</button>
+                        <button type ="button" onClick={() => setCategory("ai")} className={'block px-1 py-1 rounded-2xl overflow-hidden object-cover ' + (category === 'bollywood' ? 'bg-blue-50' : '')}>AI</button>
                     </div>
                     </div>
                 <div>
@@ -68,12 +69,19 @@ const Homepage = () => {
                         </div>
                     )}
                 </div>
-                <Footer />
-            </div>
+                {/*<Footer />*/}
+
+                </div>
             <div className="md:col-span-1 lg:col-span-2 bg-blue-200" ></div>
         </div>
+
+<Footer/>
+</>
     );
 };
 
 export default Homepage;
 // If this page dont fetch, open blog/id page on browser and then return to this page
+
+
+

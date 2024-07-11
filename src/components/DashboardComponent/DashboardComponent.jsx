@@ -105,9 +105,9 @@ const handleImgSubmit = async (e) => {
   return (
     <div>
       
-      <div className="flex justify-center text-2xl mt-4">Publish your passions, your way</div>
-          <div className="flex justify-center text-lg">Create a unique and beautiful blog easily.</div>
-
+      {/*<div className="flex justify-center text-2xl mt-4">Publish your passions, your way</div>
+          <div className="flex justify-center text-lg mb-4">Create a unique and beautiful blog easily.</div>*/}
+          <p className='mt-4'>Welcome to the Author Dashboard. <br /> Here, you can manage and publish articles. Use the form below to create a new post. Please ensure you upload an image, provide a title, include a description and select a category for each post. Once submitted, your post will be published.</p>
           <form onSubmit={handleImgSubmit} className="flex flex-col justify-center items-center mt-4">
           <div className="flex justify-center text-md mb-4">Upload Main Image for your Blog</div>
             <div>
@@ -143,9 +143,9 @@ const handleImgSubmit = async (e) => {
               value={data.category}
               onChange={(e) => setData({ ...data, category: e.target.value })}
               >
-                <option value="sports">Sports</option>
-                <option value="politics">Politics</option>
-                <option value="bollywood">Bollywood</option>
+                <option value="mobiles">Mobiles</option>
+                <option value="technology">Technology</option>
+                <option value="ai">AI</option>
               </select>
 
             </div>
@@ -160,13 +160,15 @@ const handleImgSubmit = async (e) => {
           </form>
 
           <button
-            className="container flex flex-row items-center justify-center mt-8 ml-auto bg-slate-500 text-white px-4 py-2 rounded"
+            className="container flex flex-row items-center justify-center mt-8 ml-auto mb-2 bg-slate-500 text-white px-4 py-2 rounded"
             onClick={() => setShowButton(!showButton)}
           >
             Manage Your Blogs
           </button>
 
           {showButton && (
+            <>
+            <p>Below is a list of your previously submitted posts. You can view, edit, or delete your posts as needed.</p>
             <table className=" min-w-full mt-4 bg-slate-50">
               <thead>
                 <tr>
@@ -194,6 +196,7 @@ const handleImgSubmit = async (e) => {
                 ))}
               </tbody>
             </table>
+            </>
           )}
 
     </div>
