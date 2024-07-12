@@ -51,6 +51,11 @@ const Header = () => {
                         <div class="fixed bg-slate-200 bottom-0 top-0 right-0 h-screen w-2/5 z-[60] pt-16" >
                         <ul className="flex-row space-y-2 w-full">
                             <button className="font-medium px-4 py-4 fixed top-0 right-0" onClick={()=>(setMobileMenu(!mobileMenu))}><i class="fa fa-close"></i></button>
+                            {session && (
+                                <>
+                                    <li className="w-full px-2 py-2"><a className="w-full font-sm">Hi {session?.user.name}</a></li>
+                                </>
+                            )}
                             <li className="w-full hover:bg-gray-300 rounded-md px-2 py-2"><a href="/" className="w-full font-medium">Home</a></li>
                             <li className="w-full hover:bg-gray-300 rounded-md px-2 py-2"><a href="/dashboard" className="w-full font-medium">Dashboard</a></li>
                             {!session && (
@@ -61,8 +66,7 @@ const Header = () => {
                             )}
                             {session && (
                                 <>
-                                    <li className="w-full hover:bg-gray-300 rounded-md px-2 py-2"><a href="#" onClick={() => signOut({ callbackUrl: '/' })} className="w-full font-medium hover:bg-gray-400 rounded-2xl px-2 py-2">Logout</a></li>
-                                    <li className="w-full hover:bg-gray-300 rounded-md px-2 py-2"><a className="w-full font-sm">Hi {session?.user.name}</a></li>
+                                    <li className="w-full hover:bg-gray-300 rounded-md px-2 py-2"><a href="#" onClick={() => signOut({ callbackUrl: '/' })} className="w-full font-medium">Logout</a></li>
                                 </>
                             )}
                         </ul>
