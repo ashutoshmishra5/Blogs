@@ -35,9 +35,9 @@ const Homepage = () => {
                         <label>category: </label>
                         
                         <button className="block px-2 py-2" type ="button" onClick={() => setCategory("")} >all</button>
-                        <button type ="button" onClick={() => setCategory("mobiles")} className={'block px-1 py-1 rounded-2xl overflow-hidden object-cover ' + (category === 'sports' ? 'bg-blue-50' : '')}>mobiles</button>
-                        <button type ="button" onClick={() => setCategory("technology")} className={'block px-1 py-1 rounded-2xl overflow-hidden object-cover ' + (category === 'politics' ? 'bg-blue-50' : '')}>technology</button>
-                        <button type ="button" onClick={() => setCategory("ai")} className={'block px-1 py-1 rounded-2xl overflow-hidden object-cover ' + (category === 'bollywood' ? 'bg-blue-50' : '')}>ai</button>
+                        <button type ="button" onClick={() => setCategory("mobiles")} className={'block px-1 py-1 rounded-2xl overflow-hidden object-cover ' + (category === 'mobiles' ? 'bg-blue-50' : '')}>mobiles</button>
+                        <button type ="button" onClick={() => setCategory("technology")} className={'block px-1 py-1 rounded-2xl overflow-hidden object-cover ' + (category === 'technology' ? 'bg-blue-50' : '')}>technology</button>
+                        <button type ="button" onClick={() => setCategory("ai")} className={'block px-1 py-1 rounded-2xl overflow-hidden object-cover ' + (category === 'ai' ? 'bg-blue-50' : '')}>ai</button>
                     </div>
                     </div>
                 <div>

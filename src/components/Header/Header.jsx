@@ -42,31 +42,31 @@ const Header = () => {
 
                     <div className="sm:hidden flex justify-between items-center">
                         <a href="/" className=""> <Image className="object-cover hover:opacity-50 duration-200" src="/logo1.png" height={60} width={80} alt="logo" /> </a>
-                        <button onClick={()=>(setMobileMenu(!mobileMenu))}><i class="fa-solid fa-bars"></i></button>
+                        <button onClick={()=>(setMobileMenu(!mobileMenu))} className="font-sm text-xl text-gray-700 px-2 py-2"><i class="fa-solid fa-bars"></i></button>
                     </div>
 
                     </div>
 
                     {mobileMenu && 
-                        <div class="fixed bg-slate-200 bottom-0 top-0 right-0 h-screen w-2/5 z-[60] pt-16" >
+                        <div class="fixed bg-slate-200 bottom-0 top-0 right-0 h-screen w-4/6 z-[60] pt-16" >
                         <ul className="flex-row space-y-2 w-full">
-                            <button className="font-medium px-4 py-4 fixed top-0 right-0" onClick={()=>(setMobileMenu(!mobileMenu))}><i class="fa fa-close"></i></button>
+                            <button className="font-sm px-4 py-4 fixed top-0 right-0" onClick={()=>(setMobileMenu(!mobileMenu))}><i class="fa fa-close"></i></button>
                             {session && (
                                 <>
                                     <li className="w-full px-2 py-2"><a className="w-full font-sm">Hi {session?.user.name}</a></li>
                                 </>
                             )}
-                            <li className="w-full hover:bg-gray-300 rounded-md px-2 py-2"><a href="/" className="w-full font-medium">Home</a></li>
-                            <li className="w-full hover:bg-gray-300 rounded-md px-2 py-2"><a href="/dashboard" className="w-full font-medium">Dashboard</a></li>
+                            <li className="w-full hover:bg-gray-300 rounded-md px-2 py-2"><a href="/" className="w-full font-sm">Home</a></li>
+                            <li className="w-full hover:bg-gray-300 rounded-md px-2 py-2"><a href="/dashboard" className="w-full font-sm">Dashboard</a></li>
                             {!session && (
                                 <>
-                                    <li className="w-full hover:bg-gray-300 rounded-md px-2 py-2"><a href="/register" className="w-full font-medium">Register</a></li>
-                                    <li className="w-full hover:bg-gray-300 rounded-md px-2 py-2"><a href="/login" className="w-full font-medium">Login</a></li>
+                                    <li className="w-full hover:bg-gray-300 rounded-md px-2 py-2"><a href="/register" className="w-full font-sm">Register</a></li>
+                                    <li className="w-full hover:bg-gray-300 rounded-md px-2 py-2"><a href="/login" className="w-full font-sm">Login</a></li>
                                 </>
                             )}
                             {session && (
                                 <>
-                                    <li className="w-full hover:bg-gray-300 rounded-md px-2 py-2"><a href="#" onClick={() => signOut({ callbackUrl: '/' })} className="w-full font-medium">Logout</a></li>
+                                    <li className="w-full hover:bg-gray-300 rounded-md px-2 py-2"><a href="#" onClick={() => signOut({ callbackUrl: '/' })} className="w-full font-sm">Logout</a></li>
                                 </>
                             )}
                         </ul>
