@@ -35,16 +35,16 @@ const Homepage = () => {
                         <label>category: </label>
                         
                         <button className="block px-2 py-2" type ="button" onClick={() => setCategory("")} >all</button>
-                        <button type ="button" onClick={() => setCategory("mobiles")} className={'block px-1 py-1 rounded-2xl overflow-hidden object-cover ' + (category === 'sports' ? 'bg-blue-50' : '')}>Mobiles</button>
-                        <button type ="button" onClick={() => setCategory("technology")} className={'block px-1 py-1 rounded-2xl overflow-hidden object-cover ' + (category === 'politics' ? 'bg-blue-50' : '')}>Technology</button>
-                        <button type ="button" onClick={() => setCategory("ai")} className={'block px-1 py-1 rounded-2xl overflow-hidden object-cover ' + (category === 'bollywood' ? 'bg-blue-50' : '')}>AI</button>
+                        <button type ="button" onClick={() => setCategory("mobiles")} className={'block px-1 py-1 rounded-2xl overflow-hidden object-cover ' + (category === 'sports' ? 'bg-blue-50' : '')}>mobiles</button>
+                        <button type ="button" onClick={() => setCategory("technology")} className={'block px-1 py-1 rounded-2xl overflow-hidden object-cover ' + (category === 'politics' ? 'bg-blue-50' : '')}>technology</button>
+                        <button type ="button" onClick={() => setCategory("ai")} className={'block px-1 py-1 rounded-2xl overflow-hidden object-cover ' + (category === 'bollywood' ? 'bg-blue-50' : '')}>ai</button>
                     </div>
                     </div>
                 <div>
                     {blogsInThisPage.length > 0 ? (
                         <ul>
                             {blogsInThisPage.map((blog) => (
-                                <Cards key={blog._id} title={blog.title} author={blog.author} date={blog.date} imgUrl={blog.imgUrl} desc={truncateText(blog.desc, 60)} href={`/blogs/${blog._id}`} />
+                                <Cards key={blog._id} title={truncateText(blog.title, 20)} author={blog.author} date={blog.date} imgUrl={blog.imgUrl} desc={truncateText(blog.desc, 40)} href={`/blogs/${blog._id}`} />
                             ))}
                         </ul>
                     ) : (

@@ -5,7 +5,7 @@ const Cards = ({key,title,desc,href,author,date,imgUrl}) => {
         <>
             <div key={key}>
                 <div className="py-1">
-                        <div className="rounded-xl container overflow-hidden bg-gray-200 transform hover:-translate-y-1 hover:shadow-lg duration-1000">
+                        <div className="rounded-xl container overflow-hidden bg-gray-200 transform hover:-translate-y-1 hover:shadow-lg duration-1000 py-1">
                                 <a href={href}>
                                 <div className="sm:flex flex-row">
 
